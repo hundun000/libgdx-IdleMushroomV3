@@ -110,6 +110,15 @@ public abstract class BaseIdleMushroomScreen extends BaseHundunScreen<IdleMushro
         this.getGame().getIdleGameplayExport().getGameplayContext().getEventManager().registerListener(buffInfoBoard);
     }
 
+    /**
+     * BaseIdleMushroomScreen.lazyInitUiRootContext()结束时，uiRootTable基础布局已完成：<br>
+     * 1. 第一第二行（上部）是定高的storageInfoTable和buffInfoBoard；<br>
+     * 2. 第三行分为左中右，右部是定宽的gameAreaControlBoard，中部middleGroup应用grow()，则左侧leftSideGroup默认宽度为0。<br>
+     * 子类可拓展：<br>
+     * - 向leftSideGroup添加（定宽的）board。<br>
+     * - 向middleGroup添加游戏画面。<br>
+     * - 继续向uiRootTable添加第四行（下部）（定高的）board。<br>
+     */
     protected void lazyInitUiRootContext() {
         storageInfoTable = new StorageInfoBoard(this);
         uiRootTable.add(storageInfoTable)
@@ -182,6 +191,9 @@ public abstract class BaseIdleMushroomScreen extends BaseHundunScreen<IdleMushro
         buffInfoBoard.updateViewData(new HashMap<>(0));
     };
 
+    /**
+     * 子类决定好当前Screen的InputProcessor（常为mixed）后，在此方法提供给基类。基类管理切换。
+     */
     protected abstract InputProcessor provideDefaultInputProcessor();
 
     @Override
