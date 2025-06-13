@@ -117,8 +117,7 @@ public class IdleMushroomGameAreaControlBoard extends Table implements IGameArea
 
                     parent.getGame().setLastScreenId(parent.getScreenId());
                     parent.getGame().getScreenManager().pushScreen(gotoScreenId.get(), null);
-                    // FIXME
-                    //parent.getGame().getAudioPlayManager().intoScreen(gotoScreenId);
+                    parent.getGame().getAudioPlayManager().intoScreen(gotoScreenId.get().getScreenId());
                 }
             });
 /*            this.label = new Label(gotoScreenId, parent.getGame().getMainSkin());

@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import hundun.gdxgame.idlemushroom.IdleMushroomGame;
 import hundun.gdxgame.idlemushroom.logic.id.IdleMushroomBuffId;
@@ -42,7 +43,7 @@ public class IdleMushroomWorldPlayScreen extends BaseIdleMushroomPlayScreen impl
         super(game, IdleMushroomScreenId.SCREEN_WORLD);
 
         this.deskCamera = new OrthographicCamera();
-        this.deskStage = new Stage(new ScreenViewport(deskCamera));
+        this.deskStage = new Stage(new FitViewport(game.getMainViewportWidth(), game.getMainViewportHeight(), deskCamera));
     }
 
 
@@ -149,4 +150,10 @@ public class IdleMushroomWorldPlayScreen extends BaseIdleMushroomPlayScreen impl
         hexAreaVM.updateUIForConstructionCollectionChange(constructions);
     }
 
+    @Override
+    public void resize(int width, int height) {
+        super.resize(width, height);
+        if(width <= 0 || height <= 0) return;
+        this.deskStage.getViewport().update(width, height, true);
+    }
 }
