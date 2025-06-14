@@ -1,7 +1,7 @@
 package hundun.gdxgame.idlemushroom.logic;
 
-import hundun.gdxgame.libv3.corelib.gamelib.base.util.JavaFeatureForGwt;
-import hundun.gdxgame.libv3.corelib.gamelib.starter.listerner.ILogicFrameListener;
+import hundun.gdxgame.libv3.gamelib.base.util.JavaFeatureForGwt;
+import hundun.gdxgame.libv3.gamelib.starter.listerner.ILogicFrameListener;
 import hundun.gdxgame.idlemushroom.IdleMushroomGame;
 import hundun.gdxgame.idleshare.gamelib.framework.listener.IResourceChangeListener;
 import hundun.gdxgame.idleshare.gamelib.framework.model.event.EventManager.OneSecondResourceChangeEvent;
@@ -15,6 +15,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+/**
+ * 记录游戏进度：
+ * - 建筑变化；
+ * - 资源变化（每隔一段时间记录）；
+ */
 public class HistoryManager implements IResourceChangeListener, ILogicFrameListener {
     private final List<OneSecondResourceChangeEventOneTagData> outputHistoryList = new ArrayList<>();
     private final IdleMushroomGame game;
@@ -49,6 +54,9 @@ public class HistoryManager implements IResourceChangeListener, ILogicFrameListe
         );
     }
 
+    /**
+     *
+     */
     private void addProxyRunRecordTypeLogResourcesDeltaMap() {
         Map<String, Float> avgResourceDeltaMap = new HashMap<>();
         outputHistoryList.stream()

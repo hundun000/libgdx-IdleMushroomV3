@@ -1,6 +1,6 @@
 package hundun.gdxgame.idlemushroom.logic.id;
 
-import hundun.gdxgame.libv3.corelib.gamelib.base.util.JavaFeatureForGwt;
+import hundun.gdxgame.libv3.gamelib.base.util.JavaFeatureForGwt;
 
 import java.util.List;
 

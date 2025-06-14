@@ -2,7 +2,7 @@ package hundun.gdxgame.idlemushroom.ui.world;
 
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import hundun.gdxgame.libv3.corelib.gamelib.starter.listerner.ILogicFrameListener;
+import hundun.gdxgame.libv3.gamelib.starter.listerner.ILogicFrameListener;
 import hundun.gdxgame.idlemushroom.logic.id.IdleMushroomConstructionPrototypeId;
 import hundun.gdxgame.idlemushroom.ui.screen.IdleMushroomWorldPlayScreen;
 import hundun.gdxgame.idlemushroom.ui.shared.BaseCellDetailNodeVM;

@@ -1,7 +1,7 @@
 package hundun.gdxgame.idlemushroom.ui.shared;
 
 import com.badlogic.gdx.Gdx;
-import hundun.gdxgame.libv3.corelib.gamelib.starter.listerner.IGameAreaChangeListener;
+import hundun.gdxgame.libv3.gamelib.starter.listerner.IGameAreaChangeListener;
 import hundun.gdxgame.idlemushroom.IdleMushroomGame;
 import hundun.gdxgame.idlemushroom.logic.ProxyManager.ProxyState;
 import hundun.gdxgame.idlemushroom.ui.achievement.AchievementPopupBoard;

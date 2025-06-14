@@ -24,7 +24,7 @@
   <inherits name="hundun.gdxgame.libv3.corelib.html.SharedHtml" />
   <!-- 本项目内部依赖 -->
   <inherits name="hundun.gdxgame.idlemushroom.IdleMushroomGame" />
-  <inherits name="hundun.gdxgame.idleshare.Shared" />
+  <inherits name="hundun.gdxgame.idleshare.core.Shared" />
   <!-- You must change this if you rename packages later, or rename GwtLauncher. -->
   <entry-point class="hundun.gdxgame.idlemushroom.gwt.GwtLauncher" />
 

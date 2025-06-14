@@ -1,0 +1,7 @@
+eclipse.project.name = appName + '-shared'
+
+dependencies {
+  api project(":idle-common")
+  api "com.github.hundun000.libgdx-hundun-libV3:hundun-shared-core:$hundunLibVersion"
+  api "com.github.hundun000.libgdx-hundun-libV3:hundun-shared-core:$hundunLibVersion:sources"
+}

@@ -1,6 +1,6 @@
 package hundun.gdxgame.idlemushroom.logic;
 
-import hundun.gdxgame.libv3.corelib.gamelib.base.util.JavaFeatureForGwt;
+import hundun.gdxgame.libv3.gamelib.base.util.JavaFeatureForGwt;
 import hundun.gdxgame.idleshare.gamelib.framework.model.achievement.AchievementManager.AchievementState;
 import hundun.gdxgame.idleshare.gamelib.framework.util.text.Language;
 

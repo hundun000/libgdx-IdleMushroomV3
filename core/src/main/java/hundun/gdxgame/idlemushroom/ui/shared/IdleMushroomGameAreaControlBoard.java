@@ -9,7 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import de.eskalon.commons.screen.ManagedScreen;
 import hundun.gdxgame.idlemushroom.ui.screen.IdleMushroomMenuScreen;
-import hundun.gdxgame.libv3.corelib.gamelib.starter.listerner.IGameAreaChangeListener;
+import hundun.gdxgame.libv3.gamelib.starter.listerner.IGameAreaChangeListener;
 import hundun.gdxgame.idlemushroom.logic.ProxyManager.ProxyState;
 
 import java.util.LinkedHashMap;

@@ -2,7 +2,7 @@ package hundun.gdxgame.idlemushroom.logic.loader;
 
 import hundun.gdxgame.idlemushroom.logic.id.IdleMushroomConstructionPrototypeId;
 import hundun.gdxgame.idlemushroom.logic.prototype.*;
-import hundun.gdxgame.idleshare.gamelib.framework.model.construction.*;
+import hundun.gdxgame.idleshare.gamelib.framework.model.construction.AbstractConstructionPrototype;
 import hundun.gdxgame.idleshare.gamelib.framework.model.construction.base.IBuiltinConstructionsLoader;
 import hundun.gdxgame.idleshare.gamelib.framework.model.resource.ResourcePack;
 import hundun.gdxgame.idleshare.gamelib.framework.model.resource.ResourcePair;

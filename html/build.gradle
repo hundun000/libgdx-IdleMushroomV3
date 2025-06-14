@@ -19,7 +19,7 @@ gwt {
   minHeapSize = '1G'
 
   // Needs to be in front of "modules" below.
-  src = files(file('src/main/java'), project(":core").file('src/main/java'), project(":idle-shared").file('src/main/java'))
+  src = files(file('src/main/java'), project(":core").file('src/main/java'), project(":idle-core").file('src/main/java'))
   modules += ["hundun.gdxgame.idlemushroom.GdxDefinition"]
   devModules += ["hundun.gdxgame.idlemushroom.GdxDefinitionSuperdev"]
   project.webAppDirName = "webapp"
@@ -146,7 +146,7 @@ tasks.register('addSource') {
     sourceSets.main.compileClasspath += files(project(':core').sourceSets.main.allJava.srcDirs)
     sourceSets.main.compileClasspath += files("../core/build/generated/sources/annotationProcessor/java/main")
     sourceSets.main.compileClasspath += files(sourceSets.main.output.resourcesDir)
-    sourceSets.main.compileClasspath += files(project(':idle-shared').sourceSets.main.allJava.srcDirs)
+    sourceSets.main.compileClasspath += files(project(':idle-core').sourceSets.main.allJava.srcDirs)
   }
 }
 

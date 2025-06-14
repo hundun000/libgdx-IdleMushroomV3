@@ -1,6 +1,0 @@
-eclipse.project.name = appName + '-shared'
-
-dependencies {
-  api "com.github.hundun000.libgdx-hundun-libV3:hundun-shared:$hundunLibVersion"
-  api "com.github.hundun000.libgdx-hundun-libV3:hundun-shared:$hundunLibVersion:sources"
-}

@@ -8,7 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import hundun.gdxgame.libv3.corelib.base.BaseHundunScreen;
-import hundun.gdxgame.libv3.corelib.gamelib.starter.listerner.IGameAreaChangeListener;
+import hundun.gdxgame.libv3.gamelib.starter.listerner.IGameAreaChangeListener;
 import hundun.gdxgame.idlemushroom.IdleMushroomGame;
 import hundun.gdxgame.idlemushroom.logic.RootSaveData;
 import hundun.gdxgame.idlemushroom.ui.screen.IdleMushroomScreenContext.IdleMushroomPlayScreenLayoutConst;

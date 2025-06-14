@@ -1,0 +1,22 @@
+plugins {
+    id 'java'
+}
+
+group = 'org.example'
+version = 'unspecified'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+  api "com.github.hundun000.libgdx-hundun-libV3:hundun-shared-common:$hundunLibVersion"
+  api "com.github.hundun000.libgdx-hundun-libV3:hundun-shared-common:$hundunLibVersion:sources"
+
+  testImplementation platform('org.junit:junit-bom:5.10.0')
+  testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+test {
+    useJUnitPlatform()
+}

@@ -1,6 +1,6 @@
 package hundun.gdxgame.idlemushroom;
 
-import hundun.gdxgame.libv3.corelib.gamelib.base.util.JavaFeatureForGwt;
+import hundun.gdxgame.libv3.gamelib.base.util.JavaFeatureForGwt;
 import hundun.gdxgame.idlemushroom.logic.id.IdleMushroomConstructionPrototypeId;
 import hundun.gdxgame.idlemushroom.logic.id.IdleMushroomScreenId;
 import hundun.gdxgame.idlemushroom.logic.id.ResourceType;

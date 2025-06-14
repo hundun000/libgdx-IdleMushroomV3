@@ -1,7 +1,7 @@
 package hundun.gdxgame.idlemushroom.logic;
 
 import com.badlogic.gdx.Gdx;
-import hundun.gdxgame.libv3.corelib.gamelib.base.util.JavaFeatureForGwt;
+import hundun.gdxgame.libv3.gamelib.base.util.JavaFeatureForGwt;
 import hundun.gdxgame.idlemushroom.IdleMushroomGame;
 import hundun.gdxgame.idlemushroom.logic.HistoryManager.ProxyActionType;
 import hundun.gdxgame.idlemushroom.logic.id.IdleMushroomConstructionPrototypeId;
@@ -12,6 +12,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+/**
+ * 管理所有自动进行的事：<br>
+ * - 开发期间加快游戏时自动升级；（未来可能改为游戏机制玩家可托管？）<br>
+ * - 自动保存<br>
+ */
 public class ProxyManager {
 
     IdleMushroomGame game;
@@ -24,12 +29,27 @@ public class ProxyManager {
     @Getter
     ProxyState proxyState;
     public enum ProxyState {
+        /**
+         * 进行自动工作（建筑购买、升级）
+         */
         RUNNING,
+        /**
+         * 不再进行自动工作（建筑购买、升级）。自动保存不受影响。
+         */
         PAUSE,
+        /**
+         * 下次逻辑帧将调用结束进程
+         */
         STOP,
     }
 
+    /**
+     * 某些方法不预设其实现者
+     */
     public interface IProxyManagerCallback {
+        /**
+         * 在自动停止进程结束前调用，可插入一些收尾工作
+         */
         default void onProxyCauseExit(IdleMushroomGame game) {};
     }
 
@@ -49,9 +69,21 @@ public class ProxyManager {
     @AllArgsConstructor
     @Builder
     public static class ProxyConfig {
+        /**
+         * 满足该秒数后，运行状态自动切换到STOP
+         */
         Integer stopConditionSecondCount;
+        /**
+         * 满足该建筑等级后，运行状态自动切换到STOP
+         */
         Map<String, Integer> stopConditionConstructionLevelMap;
+        /**
+         * 自动保存间隔
+         */
         Integer autoSaveDeltaSecond;
+        /**
+         * 游戏开始时的状态
+         */
         ProxyState starterProxyState;
 
         public static ProxyConfig devInstance() {
@@ -75,8 +107,11 @@ public class ProxyManager {
     }
 
 
+    /**
+     * （每个游戏帧检查一次）满足条件则自动做事；
+     */
     public void tryAutoAction() {
-        // skip some frame
+        // 并不需要每个游戏帧检查一次，此处设为每整数秒执行一次；
         if (!game.getIdleGameplayExport().getGameplayContext().getIdleFrontend().modLogicFrameSecondZero(1))
         {
             return;

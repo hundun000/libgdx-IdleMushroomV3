@@ -1,7 +1,7 @@
 package hundun.gdxgame.idlemushroom.logic;
 
 
-import hundun.gdxgame.libv3.corelib.gamelib.starter.save.IRootSaveExtension;
+import hundun.gdxgame.libv3.gamelib.starter.save.IRootSaveExtension;
 import hundun.gdxgame.idleshare.gamelib.framework.data.GameplaySaveData;
 import hundun.gdxgame.idleshare.gamelib.framework.data.SystemSettingSaveData;
 import lombok.AllArgsConstructor;

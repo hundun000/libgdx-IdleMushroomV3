@@ -1,8 +1,8 @@
 package hundun.gdxgame.idlemushroom;
 
 import com.badlogic.gdx.utils.Null;
-import hundun.gdxgame.libv3.corelib.gamelib.base.util.JavaFeatureForGwt;
-import hundun.gdxgame.libv3.corelib.gamelib.starter.listerner.IGameStartListener;
+import hundun.gdxgame.libv3.gamelib.base.util.JavaFeatureForGwt;
+import hundun.gdxgame.libv3.gamelib.starter.listerner.IGameStartListener;
 import hundun.gdxgame.idlemushroom.IdleMushroomGame.BuffEpochConfig;
 import hundun.gdxgame.idlemushroom.IdleMushroomGame.ConstructionEpochConfig;
 import hundun.gdxgame.idlemushroom.IdleMushroomGame.RootEpochConfig;

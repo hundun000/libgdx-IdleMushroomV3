@@ -1,6 +1,6 @@
 package hundun.gdxgame.idlemushroom.logic.loader;
 
-import hundun.gdxgame.libv3.corelib.gamelib.base.util.JavaFeatureForGwt;
+import hundun.gdxgame.libv3.gamelib.base.util.JavaFeatureForGwt;
 import hundun.gdxgame.idlemushroom.IdleMushroomExtraGameplayExport;
 import hundun.gdxgame.idlemushroom.logic.IdleMushroomGameDictionary;
 import hundun.gdxgame.idlemushroom.logic.id.IdleMushroomAchievementId;

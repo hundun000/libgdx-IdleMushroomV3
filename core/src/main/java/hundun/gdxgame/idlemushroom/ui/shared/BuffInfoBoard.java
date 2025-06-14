@@ -3,7 +3,7 @@ package hundun.gdxgame.idlemushroom.ui.shared;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
-import hundun.gdxgame.libv3.corelib.gamelib.base.util.JavaFeatureForGwt;
+import hundun.gdxgame.libv3.gamelib.base.util.JavaFeatureForGwt;
 import hundun.gdxgame.idlemushroom.logic.id.IdleMushroomBuffId;
 import hundun.gdxgame.idleshare.core.framework.StarterSecondaryInfoBoardCallerClickListener;
 import hundun.gdxgame.idleshare.gamelib.framework.listener.IBuffChangeListener;
