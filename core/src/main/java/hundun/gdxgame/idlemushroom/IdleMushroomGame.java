@@ -139,9 +139,9 @@ public class IdleMushroomGame extends BaseHundunGame<RootSaveData> {
 
     @Override
     protected void createBody() {
-        textureManager.lazyInitOnGameCreateStage2();
+        textureManager.lazyInitOnGameCreateBody();
 
-        idleMushroomExtraGameplayManager.lazyInitStage2();
+        idleMushroomExtraGameplayManager.lazyInitOnGameCreateBody();
         this.getIdleGameplayExport().getGameplayContext().getEventManager().registerListener(this.getIdleGameplayExport().getGameplayContext().getHistoryManager());
         screenContext.lazyInit();
     }

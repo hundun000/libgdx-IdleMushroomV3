@@ -23,7 +23,7 @@ import java.util.Locale;
 
 public class AutoProviderPrototype extends AbstractConstructionPrototype {
 
-    public static ProficiencyDescriptionPackage CN_PROFICIENCY_IMP = DescriptionPackageFactory.EN_PROFICIENCY_IMP
+    public static ProficiencyDescriptionPackage CN_PROFICIENCY_IMP = DescriptionPackageFactory.CN_PROFICIENCY_IMP
             .formatPercentage(true)
             .proficiencyPart("成长度: {0}%")
             .build();

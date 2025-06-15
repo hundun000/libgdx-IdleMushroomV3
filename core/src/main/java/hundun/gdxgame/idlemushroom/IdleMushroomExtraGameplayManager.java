@@ -1,12 +1,13 @@
 package hundun.gdxgame.idlemushroom;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.utils.I18NBundle;
 import com.badlogic.gdx.utils.Null;
-import hundun.gdxgame.idlemushroom.logic.prototype.AutoProviderPrototype;
 import hundun.gdxgame.idleshare.gamelib.export.IdleGameplayExport;
 import hundun.gdxgame.idleshare.gamelib.framework.model.construction.base.DescriptionPackage;
 import hundun.gdxgame.idleshare.gamelib.framework.model.construction.base.DescriptionPackage.LevelDescriptionPackage;
 import hundun.gdxgame.idleshare.gamelib.framework.model.construction.base.DescriptionPackage.ProficiencyDescriptionPackage;
-import hundun.gdxgame.idleshare.gamelib.framework.model.construction.base.DescriptionPackageFactory;
 import hundun.gdxgame.libv3.gamelib.base.util.JavaFeatureForGwt;
 import hundun.gdxgame.libv3.gamelib.starter.listerner.IGameStartListener;
 import hundun.gdxgame.idlemushroom.IdleMushroomGame.BuffEpochConfig;
@@ -18,8 +19,10 @@ import hundun.gdxgame.idleshare.core.framework.HundunIdleFrontend;
 import hundun.gdxgame.idleshare.gamelib.framework.model.construction.base.BaseConstruction;
 import lombok.Getter;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -190,8 +193,9 @@ public class IdleMushroomExtraGameplayManager extends HundunIdleFrontend impleme
 
     }
 
-    public void lazyInitStage2() {
+    public void lazyInitOnGameCreateBody() {
         idleMushroomGame.getIdleGameplayExport().getGameplayContext().getEventManager().registerListener(this);
+
     }
 
     @Override
@@ -224,8 +228,52 @@ public class IdleMushroomExtraGameplayManager extends HundunIdleFrontend impleme
         construction.updateModifiedValues();
     }
 
+    static final String I18N_COPY_KEY = ":COPY";
+    static final String I18N_VALUE_LIST_SPLIT = ";;";
+    private String bundleSafeGet(I18NBundle bundle, String key) {
+        if (!bundle.keys().contains(key)) {
+            idleMushroomGame.getFrontend().log(this.getClass().getSimpleName(), "bundle miss key = %s", key);
+            return "[miss bundle]";
+        }
+        return bundle.get(key);
+    }
+
     @Override
     public DescriptionPackage getConstructionDescriptionPackage(String prototypeId) {
+
+        FileHandle fileHandle = Gdx.files.internal("i18n/ConstructionPrototype");
+        I18NBundle bundle = I18NBundle.createBundle(fileHandle, idleMushroomGame.getIdleGameplayExport().getLocale());
+        if (bundle != null) {
+            // 若存在 key = prototypeId + I18N_COPY_KEY，则其value作为模板
+            String usingClassKey = Optional.of(prototypeId + I18N_COPY_KEY)
+                .filter(it -> bundle.keys().contains(it))
+                .map(it -> bundle.get(it))
+                .orElse(prototypeId);
+            return DescriptionPackage.builder()
+                .name(bundleSafeGet(bundle, usingClassKey + ":name"))
+                .wikiText(bundleSafeGet(bundle, usingClassKey + ":wikiText"))
+                .upgradeButtonText(bundleSafeGet(bundle, usingClassKey + ":upgradeButtonText"))
+                .outputCostDescriptionStart(bundleSafeGet(bundle, usingClassKey + ":outputCostDescriptionStart"))
+                .outputGainDescriptionStart(bundleSafeGet(bundle, usingClassKey + ":outputGainDescriptionStart"))
+                .upgradeCostDescriptionStart(bundleSafeGet(bundle, usingClassKey + ":upgradeCostDescriptionStart"))
+                .upgradeMaxLevelDescription(bundleSafeGet(bundle, usingClassKey + ":upgradeMaxLevelDescription"))
+                .extraTexts(Arrays.asList(
+                    bundleSafeGet(bundle, usingClassKey + ":upgradeMaxLevelDescription").split(I18N_VALUE_LIST_SPLIT)
+                ))
+                .levelDescriptionProvider(LevelDescriptionPackage.builder()
+                    .levelPart(bundleSafeGet(bundle, usingClassKey + ":levelDescriptionProvider.levelPart"))
+                    .reachedMaxLevelPart(bundleSafeGet(bundle, usingClassKey + ":levelDescriptionProvider.reachedMaxLevelPart"))
+                    .activeLevelPart(bundleSafeGet(bundle, usingClassKey + ":levelDescriptionProvider.activeLevelPart"))
+                    .build())
+                .proficiencyDescriptionProvider(ProficiencyDescriptionPackage.builder()
+                    .formatPercentage(bundleSafeGet(bundle, usingClassKey + ":proficiencyDescriptionProvider.levelPart").equals(Boolean.TRUE.toString()))
+                    .proficiencyPart(bundleSafeGet(bundle, usingClassKey + ":proficiencyDescriptionProvider.proficiencyPart"))
+                    .reachedMaxProficiencyPart(bundleSafeGet(bundle, usingClassKey + ":proficiencyDescriptionProvider.reachedMaxProficiencyPart"))
+                    .build())
+                .build();
+        }
+
+
         // TODO
         return DescriptionPackage.builder()
             .name("TODO.蘑菇地块")
@@ -235,16 +283,16 @@ public class IdleMushroomExtraGameplayManager extends HundunIdleFrontend impleme
             .outputGainDescriptionStart("TODO.产出")
             .upgradeCostDescriptionStart("TODO.升级费用")
             .upgradeMaxLevelDescription("(TODO.已达到最大等级)")
-            .extraTexts(JavaFeatureForGwt.listOf("TODO.可转变："))
+            .extraTexts(JavaFeatureForGwt.listOf("TODO", "TODO", "TODO"))
             .levelDescriptionProvider(LevelDescriptionPackage.builder()
                 .levelPart("TODO.等级{0}")
                 .reachedMaxLevelPart("(TODO.最大)")
                 .activeLevelPart("TODO.启用: {0}")
                 .build())
             .proficiencyDescriptionProvider(ProficiencyDescriptionPackage.builder()
-                .proficiencyPart("效率: {0)")
+                .proficiencyPart("TODO.效率: {0)")
                 .formatPercentage(true)
-                .proficiencyPart("Growth: {0}%")
+                .proficiencyPart("TODO.Growth: {0}%")
                 .build())
             .build();
     }

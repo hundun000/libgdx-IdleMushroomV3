@@ -124,7 +124,7 @@ public class IdleMushroomTextureManager {
         ));
     }
 
-    public void lazyInitOnGameCreateStage2() {
+    public void lazyInitOnGameCreateBody() {
         {
             Texture texture = new Texture(Gdx.files.internal("All Icons.png"));
             TextureRegion[][] regions = TextureRegion.split(texture, 16, 16);
