@@ -1,5 +1,6 @@
 package hundun.gdxgame.idlemushroom.logic.prototype;
 
+import hundun.gdxgame.idlemushroom.logic.IdleMushroomGameDictionary.LanguageCode;
 import hundun.gdxgame.libv3.gamelib.base.util.JavaFeatureForGwt;
 import hundun.gdxgame.idlemushroom.logic.construction.BaseIdleMushroomConstruction;
 import hundun.gdxgame.idlemushroom.logic.id.IdleMushroomConstructionPrototypeId;
@@ -14,8 +15,9 @@ import hundun.gdxgame.idleshare.gamelib.framework.model.construction.base.Descri
 import hundun.gdxgame.idleshare.gamelib.framework.model.construction.starter.ConstProficiencyComponent;
 import hundun.gdxgame.idleshare.gamelib.framework.model.construction.starter.SimpleAutoOutputComponent;
 import hundun.gdxgame.idleshare.gamelib.framework.model.grid.GridPosition;
-import hundun.gdxgame.idleshare.gamelib.framework.util.text.Language;
 
+
+import java.util.Locale;
 
 
 public class DirtPrototype extends AbstractConstructionPrototype {
@@ -42,14 +44,14 @@ public class DirtPrototype extends AbstractConstructionPrototype {
             .proficiencyDescriptionProvider(DescriptionPackageFactory.CN_PROFICIENCY_IMP.build())
             .build();
 
-    public DirtPrototype(String prototypeId, Language language) {
+    public DirtPrototype(String prototypeId, Locale language) {
         super(
                 prototypeId,
                 language
         );
-        switch (language)
+        switch (language.getLanguage())
         {
-            case CN:
+            case LanguageCode.CHINESE:
                 this.descriptionPackage = descriptionPackageCN;
                 break;
             default:

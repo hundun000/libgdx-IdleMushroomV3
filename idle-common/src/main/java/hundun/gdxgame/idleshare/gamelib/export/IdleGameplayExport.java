@@ -12,11 +12,11 @@ import hundun.gdxgame.idleshare.gamelib.framework.model.achievement.IAchievement
 import hundun.gdxgame.idleshare.gamelib.framework.model.buff.IBuffPrototypeLoader;
 import hundun.gdxgame.idleshare.gamelib.framework.model.construction.base.BaseConstruction;
 import hundun.gdxgame.idleshare.gamelib.framework.model.construction.base.IBuiltinConstructionsLoader;
-import hundun.gdxgame.idleshare.gamelib.framework.util.text.Language;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 /**
@@ -35,7 +35,7 @@ public class IdleGameplayExport implements ILogicFrameListener,
     private final IBuffPrototypeLoader buffPrototypeLoader;
     @Setter
     @Getter
-    private Language language;
+    private Locale locale;
 
     public String stageId;
 
@@ -73,11 +73,11 @@ public class IdleGameplayExport implements ILogicFrameListener,
         gameplayContext.getStorageManager().setUnlockedResourceTypes(gameplaySaveData.getUnlockedResourceTypes());
         gameplayContext.getStorageManager().setOwnResources(gameplaySaveData.getOwnResources());
         gameplayContext.getAchievementManager().subApplyGameplaySaveData(
-                builtinAchievementsLoader.getProviderMap(language),
+                builtinAchievementsLoader.getProviderMap(locale),
                 gameplaySaveData.getAchievementSaveDataMap()
         );
         gameplayContext.getBuffManager().subApplyGameplaySaveData(
-                buffPrototypeLoader.getProviderMap(language),
+                buffPrototypeLoader.getProviderMap(locale),
                 gameplaySaveData.getBuffSaveDataMap()
         );
     }
@@ -100,19 +100,20 @@ public class IdleGameplayExport implements ILogicFrameListener,
 
     @Override
     public void applySystemSetting(SystemSettingSaveData systemSettingSave) {
-        this.language = systemSettingSave.getLanguage();
+        Locale locale = Locale.forLanguageTag(systemSettingSave.getLocaleLanguageTag());
+        this.locale = locale;
         gameplayContext.allLazyInit(
-                systemSettingSave.getLanguage(),
-                childGameConfig,
-                builtinConstructionsLoader.getProviderMap(language),
-                builtinAchievementsLoader.getProviderMap(language)
-                );
+            locale,
+            childGameConfig,
+            builtinConstructionsLoader.getProviderMap(locale),
+            builtinAchievementsLoader.getProviderMap(locale)
+            );
         gameplayContext.getFrontend().log(this.getClass().getSimpleName(), "applySystemSetting done");
     }
 
     @Override
     public void currentSituationToSystemSetting(SystemSettingSaveData systemSettingSave) {
-        systemSettingSave.setLanguage(this.getLanguage());
+        systemSettingSave.setLocaleLanguageTag(this.getLocale().toLanguageTag());
     }
 
     public void postConstructionCreate(BaseConstruction construction) {}

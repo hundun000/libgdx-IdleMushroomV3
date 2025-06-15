@@ -3,24 +3,25 @@ package hundun.gdxgame.idleshare.gamelib.framework.model.construction;
 import hundun.gdxgame.idleshare.gamelib.framework.model.construction.base.BaseConstruction;
 import hundun.gdxgame.idleshare.gamelib.framework.model.construction.base.DescriptionPackage;
 import hundun.gdxgame.idleshare.gamelib.framework.model.grid.GridPosition;
-import hundun.gdxgame.idleshare.gamelib.framework.util.text.Language;
 import lombok.Getter;
+
+import java.util.Locale;
 
 @Getter
 public abstract class AbstractConstructionPrototype {
 
     protected String prototypeId;
-    protected Language language;
+    protected Locale locale;
 
     protected DescriptionPackage descriptionPackage;
 
     public AbstractConstructionPrototype(
-            String prototypeId,
-            Language language
+        String prototypeId,
+        Locale locale
     )
     {
         this.prototypeId = prototypeId;
-        this.language = language;
+        this.locale = locale;
 
 
     }

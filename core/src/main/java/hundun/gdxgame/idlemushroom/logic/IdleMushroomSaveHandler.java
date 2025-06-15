@@ -1,5 +1,6 @@
 package hundun.gdxgame.idlemushroom.logic;
 
+import hundun.gdxgame.idlemushroom.logic.IdleMushroomGameDictionary.LanguageCode;
 import hundun.gdxgame.libv3.gamelib.base.IFrontend;
 import hundun.gdxgame.libv3.gamelib.base.save.ISaveTool;
 import hundun.gdxgame.libv3.gamelib.base.util.JavaFeatureForGwt;
@@ -14,7 +15,7 @@ import hundun.gdxgame.idleshare.gamelib.framework.model.achievement.AchievementM
 import hundun.gdxgame.idleshare.gamelib.framework.model.achievement.AchievementManager.AchievementState;
 import hundun.gdxgame.idleshare.gamelib.framework.model.grid.GridPosition;
 import hundun.gdxgame.idleshare.gamelib.framework.model.grid.TileNodeUtils;
-import hundun.gdxgame.idleshare.gamelib.framework.util.text.Language;
+
 
 import java.util.*;
 
@@ -137,7 +138,7 @@ public class IdleMushroomSaveHandler extends PairChildrenSaveHandler<RootSaveDat
                         .buffSaveDataMap(new HashMap<>())
                         .build())
                 .systemSettingSaveData(SystemSettingSaveData.builder()
-                        .language(Language.EN)
+                        .localeLanguageTag(LanguageCode.localeEN.toLanguageTag())
                         .build())
                 .build();
     }

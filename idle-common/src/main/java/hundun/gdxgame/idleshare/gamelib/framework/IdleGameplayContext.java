@@ -12,10 +12,11 @@ import hundun.gdxgame.idleshare.gamelib.framework.model.construction.BaseConstru
 import hundun.gdxgame.idleshare.gamelib.framework.model.construction.ConstructionManager;
 import hundun.gdxgame.idleshare.gamelib.framework.model.event.EventManager;
 import hundun.gdxgame.idleshare.gamelib.framework.model.resource.StorageManager;
-import hundun.gdxgame.idleshare.gamelib.framework.util.text.Language;
+
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -59,12 +60,12 @@ public class IdleGameplayContext {
     }
 
     public void allLazyInit(
-            Language language,
+            Locale locale,
             ChildGameConfig childGameConfig,
             Map<String, AbstractConstructionPrototype> providerMap,
             Map<String, AbstractAchievementPrototype> achievementProviderMap
     ) {
-        this.getConstructionFactory().lazyInit(this, language, providerMap);
+        this.getConstructionFactory().lazyInit(this, locale, providerMap);
         this.getConstructionManager().lazyInit(childGameConfig.getConstructionConfig());
     }
 

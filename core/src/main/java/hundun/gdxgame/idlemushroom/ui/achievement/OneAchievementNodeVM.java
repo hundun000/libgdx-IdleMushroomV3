@@ -33,7 +33,7 @@ public class OneAchievementNodeVM extends Table {
         this.achievementAndStatus = achievementAndStatus;
 
         this.texts = parent.getGame().getIdleMushroomGameDictionary()
-                .getAchievementTexts(parent.getGame().getIdleGameplayExport().getLanguage());
+                .getAchievementTexts(parent.getGame().getIdleGameplayExport().getLocale());
         this.setBackground(parent.getGame().getTextureManager().getTableType3Drawable());
 
 
@@ -73,14 +73,14 @@ public class OneAchievementNodeVM extends Table {
     }
 
     public void updateData() {
-        
+
         if (achievementAndStatus != null)
         {
             nameValueLabel.setText(achievementAndStatus.getAchievement().getName());
             descriptionLabel.setText(achievementAndStatus.getAchievement().getDescription());
             countValueLabel.setText(
                     parent.getGame().getIdleMushroomGameDictionary().achievementStatus(
-                            parent.getGame().getIdleGameplayExport().getLanguage(),
+                            parent.getGame().getIdleGameplayExport().getLocale(),
                             achievementAndStatus.getSaveData().getState()
                     )
             );

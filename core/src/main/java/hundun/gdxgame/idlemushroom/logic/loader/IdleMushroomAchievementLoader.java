@@ -1,5 +1,6 @@
 package hundun.gdxgame.idlemushroom.logic.loader;
 
+import hundun.gdxgame.idlemushroom.logic.IdleMushroomGameDictionary.LanguageCode;
 import hundun.gdxgame.libv3.gamelib.base.util.JavaFeatureForGwt;
 import hundun.gdxgame.idlemushroom.IdleMushroomExtraGameplayManager;
 import hundun.gdxgame.idlemushroom.logic.IdleMushroomGameDictionary;
@@ -10,11 +11,12 @@ import hundun.gdxgame.idleshare.gamelib.framework.model.achievement.AbstractAchi
 import hundun.gdxgame.idleshare.gamelib.framework.model.achievement.IAchievementPrototypeLoader;
 import hundun.gdxgame.idleshare.gamelib.framework.model.achievement.OwnConstructionAchievementPrototype;
 import hundun.gdxgame.idleshare.gamelib.framework.model.resource.ResourcePair;
-import hundun.gdxgame.idleshare.gamelib.framework.util.text.Language;
+
 
 import java.util.AbstractMap.SimpleEntry;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class IdleMushroomAchievementLoader implements IAchievementPrototypeLoader {
@@ -36,11 +38,11 @@ public class IdleMushroomAchievementLoader implements IAchievementPrototypeLoade
     }
 
     @Override
-    public Map<String, AbstractAchievementPrototype> getProviderMap(Language language) {
+    public Map<String, AbstractAchievementPrototype> getProviderMap(Locale language) {
         Map<String, List<String>> textMap = new HashMap<>();
-        switch (language)
+        switch (language.getLanguage())
         {
-            case CN:
+            case LanguageCode.CHINESE:
                 textMap.put(IdleMushroomAchievementId.STEP_1, JavaFeatureForGwt.listOf(
                         "NO.1",
                         "拥有2个等级1的{PrototypeName}。",

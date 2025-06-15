@@ -6,18 +6,15 @@ import hundun.gdxgame.idleshare.gamelib.framework.model.construction.AbstractCon
 import hundun.gdxgame.idleshare.gamelib.framework.model.construction.base.IBuiltinConstructionsLoader;
 import hundun.gdxgame.idleshare.gamelib.framework.model.resource.ResourcePack;
 import hundun.gdxgame.idleshare.gamelib.framework.model.resource.ResourcePair;
-import hundun.gdxgame.idleshare.gamelib.framework.util.text.Language;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
+import java.util.*;
 
 
 public class IdleMushroomConstructionsLoader implements IBuiltinConstructionsLoader {
 
     @Override
-    public Map<String, AbstractConstructionPrototype> getProviderMap(Language language) {
+    public Map<String, AbstractConstructionPrototype> getProviderMap(Locale language) {
         Map<String, AbstractConstructionPrototype> result = new HashMap<>();
         result.put(IdleMushroomConstructionPrototypeId.EPOCH_1_EMPTY_CELL, new DirtPrototype(
                 IdleMushroomConstructionPrototypeId.EPOCH_1_EMPTY_CELL,

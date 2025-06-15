@@ -3,8 +3,9 @@ package hundun.gdxgame.idleshare.gamelib.framework.model.construction;
 import hundun.gdxgame.idleshare.gamelib.framework.IdleGameplayContext;
 import hundun.gdxgame.idleshare.gamelib.framework.model.construction.base.BaseConstruction;
 import hundun.gdxgame.idleshare.gamelib.framework.model.grid.GridPosition;
-import hundun.gdxgame.idleshare.gamelib.framework.util.text.Language;
 
+
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -14,15 +15,15 @@ import java.util.Map;
 public class BaseConstructionFactory {
 
     IdleGameplayContext gameContext;
-    Language language;
+    Locale locale;
     Map<String, AbstractConstructionPrototype> providerMap;
 
     public void lazyInit(
             IdleGameplayContext gameContext,
-            Language language,
+            Locale locale,
             Map<String, AbstractConstructionPrototype> providerMap
     ) {
-        this.language = language;
+        this.locale = locale;
         this.providerMap = providerMap;
         this.gameContext = gameContext;
     }
@@ -38,7 +39,7 @@ public class BaseConstructionFactory {
     {
         AbstractConstructionPrototype prototype = providerMap.get(prototypeId);
         BaseConstruction construction = prototype.getInstance(position);
-        construction.lazyInitDescription(gameContext, language);
+        construction.lazyInitDescription(gameContext, locale);
         gameContext.getEventManager().registerListener(construction);
         return construction;
     }

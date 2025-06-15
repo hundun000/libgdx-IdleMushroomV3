@@ -1,5 +1,6 @@
 package hundun.gdxgame.idlemushroom.logic.loader;
 
+import hundun.gdxgame.idlemushroom.logic.IdleMushroomGameDictionary.LanguageCode;
 import hundun.gdxgame.libv3.gamelib.base.util.JavaFeatureForGwt;
 import hundun.gdxgame.idlemushroom.logic.id.IdleMushroomBuffId;
 import hundun.gdxgame.idlemushroom.logic.id.IdleMushroomConstructionPrototypeId;
@@ -7,19 +8,20 @@ import hundun.gdxgame.idleshare.gamelib.framework.model.buff.AbstractBuffPrototy
 import hundun.gdxgame.idleshare.gamelib.framework.model.buff.IBuffPrototypeLoader;
 import hundun.gdxgame.idleshare.gamelib.framework.model.buff.OutputScaleBuffPrototype;
 import hundun.gdxgame.idleshare.gamelib.framework.model.buff.OutputScaleBuffPrototype.OutputScaleOneConstructionConfig;
-import hundun.gdxgame.idleshare.gamelib.framework.util.text.Language;
+
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class IdleMushroomBuffPrototypeLoader implements IBuffPrototypeLoader {
     @Override
-    public Map<String, AbstractBuffPrototype> getProviderMap(Language language) {
+    public Map<String, AbstractBuffPrototype> getProviderMap(Locale language) {
         Map<String, List<String>> textMap = new HashMap<>();
-        switch (language)
+        switch (language.getLanguage())
         {
-            case CN:
+            case LanguageCode.CHINESE:
                 textMap.put(IdleMushroomBuffId.BUFF_MUSHROOM_OUTPUT_SCALE, JavaFeatureForGwt.listOf(
                         "蘑菇增产",
                         "蘑菇增产" + "：\n"

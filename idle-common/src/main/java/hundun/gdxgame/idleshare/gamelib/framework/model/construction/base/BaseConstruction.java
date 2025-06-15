@@ -9,10 +9,11 @@ import hundun.gdxgame.idleshare.gamelib.framework.data.ConstructionSaveData;
 import hundun.gdxgame.idleshare.gamelib.framework.listener.IBuffChangeListener;
 import hundun.gdxgame.idleshare.gamelib.framework.model.grid.GridPosition;
 import hundun.gdxgame.idleshare.gamelib.framework.model.grid.ITileNode;
-import hundun.gdxgame.idleshare.gamelib.framework.util.text.Language;
+
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
 
@@ -107,7 +108,7 @@ public abstract class BaseConstruction implements IBuffChangeListener, ITileNode
         this.neighbors = neighbors;
     }
 
-    public void lazyInitDescription(IdleGameplayContext gameContext, Language language) {
+    public void lazyInitDescription(IdleGameplayContext gameContext, Locale locale) {
         this.gameplayContext = gameContext;
         updateModifiedValues();
     }
