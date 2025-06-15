@@ -3,7 +3,7 @@ package hundun.gdxgame.idlemushroom.lwjgl3;
 import com.badlogic.gdx.Gdx;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import hundun.gdxgame.libv3.corelib.base.save.AbstractSaveDataSaveTool;
+import hundun.gdxgame.libv3.corelib.base.save.AbstractLibgdxSaveTool;
 import hundun.gdxgame.idlemushroom.logic.RootSaveData;
 
 import java.io.IOException;
@@ -13,7 +13,7 @@ import java.io.IOException;
  * @author hundun
  * Created on 2021/11/10
  */
-public class PreferencesSaveTool extends AbstractSaveDataSaveTool<RootSaveData> {
+public class PreferencesSaveTool extends AbstractLibgdxSaveTool<RootSaveData> {
 
     private final ObjectMapper objectMapper;
 
@@ -25,28 +25,22 @@ public class PreferencesSaveTool extends AbstractSaveDataSaveTool<RootSaveData> 
 
     }
 
-
     @Override
-    public void writeRootSaveData(RootSaveData saveData) {
+    protected String serializeRootSaveData(RootSaveData saveData) {
         try {
-            preferences.putString(ROOT_KEY, objectMapper.writeValueAsString(saveData));
-            preferences.flush();
-            Gdx.app.log(getClass().getSimpleName(), "save() done");
+            return objectMapper.writeValueAsString(saveData);
         } catch (Exception e) {
-            Gdx.app.error(getClass().getSimpleName(), "save() error", e);
+            Gdx.app.error(getClass().getSimpleName(), "serializeRootSaveData() error", e);
+            return null;
         }
     }
 
-
-
     @Override
-    public RootSaveData readRootSaveData() {
+    protected RootSaveData deserializeRootSaveData(String raw) {
         try {
-            String date = preferences.getString(ROOT_KEY);
-            RootSaveData saveData = objectMapper.readValue(date, RootSaveData.class);
-            return saveData;
-        } catch (IOException e) {
-            Gdx.app.error(getClass().getSimpleName(), "load() error", e);
+            return objectMapper.readValue(raw, RootSaveData.class);
+        } catch (Exception e) {
+            Gdx.app.error(getClass().getSimpleName(), "deserializeRootSaveData() error", e);
             return null;
         }
     }

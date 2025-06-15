@@ -1,8 +1,4 @@
 package hundun.gdxgame.idleshare.gamelib.framework.model.achievement;
-/**
- * @author hundun
- * Created on 2021/11/12
- */
 
 import hundun.gdxgame.libv3.gamelib.starter.listerner.IGameStartListener;
 import hundun.gdxgame.idleshare.gamelib.framework.IdleGameplayContext;
