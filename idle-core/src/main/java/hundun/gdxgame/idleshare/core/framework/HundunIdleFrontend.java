@@ -3,9 +3,12 @@ package hundun.gdxgame.idleshare.core.framework;
 import hundun.gdxgame.libv3.corelib.base.BaseHundunGame;
 import hundun.gdxgame.idleshare.gamelib.export.IIdleFrontend;
 
-public class StarterIdleFrontend implements IIdleFrontend {
+/**
+ * 基于{@link BaseHundunGame}实现{@link IIdleFrontend}的需求；
+ */
+public abstract class HundunIdleFrontend implements IIdleFrontend {
     BaseHundunGame<?> game;
-    public StarterIdleFrontend(BaseHundunGame<?> game) {
+    public HundunIdleFrontend(BaseHundunGame<?> game) {
         this.game = game;
     }
 

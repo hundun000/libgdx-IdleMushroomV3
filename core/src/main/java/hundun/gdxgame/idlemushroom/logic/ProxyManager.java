@@ -149,13 +149,13 @@ public class ProxyManager {
                     proxyDoUpgrade(model);
                 });
         // ------- try autoSeller ------
-        final BaseConstruction autoSellerConstruction = game.getIdleMushroomExtraGameplayExport().getAutoSellerConstruction();
+        final BaseConstruction autoSellerConstruction = game.getIdleMushroomExtraGameplayManager().getAutoSellerConstruction();
         if (autoSellerConstruction.getUpgradeComponent().canUpgrade()) {
             proxyDoUpgrade(autoSellerConstruction);
         }
         proxyTryWorkingLevel(autoSellerConstruction);
         // ------- try epoch ------
-        final BaseConstruction epochCounterConstruction = game.getIdleMushroomExtraGameplayExport().getEpochCounterConstruction();
+        final BaseConstruction epochCounterConstruction = game.getIdleMushroomExtraGameplayManager().getEpochCounterConstruction();
         if (epochCounterConstruction.getUpgradeComponent().canUpgrade()) {
             proxyDoUpgrade(epochCounterConstruction);
         }
@@ -187,7 +187,7 @@ public class ProxyManager {
         int beforeLevel = model.getSaveData().getLevel();
         model.getUpgradeComponent().doUpgrade();
         if (model.getPrototypeId().equals(IdleMushroomConstructionPrototypeId.EPOCH_COUNTER)) {
-            game.getIdleMushroomExtraGameplayExport().doChangeEpoch(model.getSaveData().getLevel());
+            game.getIdleMushroomExtraGameplayManager().doChangeEpoch(model.getSaveData().getLevel());
         }
         int afterLevel = model.getSaveData().getLevel();
         game.getIdleGameplayExport().getGameplayContext().getHistoryManager().addProxyRunRecord(

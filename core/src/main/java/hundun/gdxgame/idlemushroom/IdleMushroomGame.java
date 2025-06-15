@@ -6,7 +6,6 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.ray3k.stripe.FreeTypeSkin;
 
 import hundun.gdxgame.idlemushroom.ui.shared.BaseIdleMushroomScreen;
-import hundun.gdxgame.idleshare.gamelib.framework.model.history.HistoryManager;
 import hundun.gdxgame.libv3.gamelib.base.save.ISaveTool;
 import hundun.gdxgame.libv3.gamelib.base.util.JavaFeatureForGwt;
 import hundun.gdxgame.idlemushroom.logic.*;
@@ -61,7 +60,7 @@ public class IdleMushroomGame extends BaseHundunGame<RootSaveData> {
     @Getter
     private final IdleMushroomGameDictionary idleMushroomGameDictionary;
     @Getter
-    private final IdleMushroomExtraGameplayExport idleMushroomExtraGameplayExport;
+    private final IdleMushroomExtraGameplayManager idleMushroomExtraGameplayManager;
     @Getter
     private final ProxyManager proxyManager;
 
@@ -89,7 +88,7 @@ public class IdleMushroomGame extends BaseHundunGame<RootSaveData> {
             () -> screenContext.getWorldPlayScreen(),
             () -> screenContext.getAchievementScreen()
         );
-        this.idleMushroomExtraGameplayExport = new IdleMushroomExtraGameplayExport(this);
+        this.idleMushroomExtraGameplayManager = new IdleMushroomExtraGameplayManager(this);
         this.proxyManager = new ProxyManager(this,
                 proxyManagerCallback
                 );
@@ -128,7 +127,7 @@ public class IdleMushroomGame extends BaseHundunGame<RootSaveData> {
         this.idleMushroomPlayScreenLayoutConst = new IdleMushroomPlayScreenLayoutConst(this.getMainViewportWidth(), this.getMainViewportHeight());
         this.idleGameplayExport = new IdleGameplayExport(
             frontend,
-            idleMushroomExtraGameplayExport,
+            idleMushroomExtraGameplayManager,
             new IdleMushroomConstructionsLoader(),
             new IdleMushroomAchievementLoader(idleMushroomGameDictionary),
             new IdleMushroomBuffPrototypeLoader(),
@@ -142,7 +141,7 @@ public class IdleMushroomGame extends BaseHundunGame<RootSaveData> {
     protected void createBody() {
         textureManager.lazyInitOnGameCreateStage2();
 
-        idleMushroomExtraGameplayExport.lazyInitStage2();
+        idleMushroomExtraGameplayManager.lazyInitStage2();
         this.getIdleGameplayExport().getGameplayContext().getEventManager().registerListener(this.getIdleGameplayExport().getGameplayContext().getHistoryManager());
         screenContext.lazyInit();
     }

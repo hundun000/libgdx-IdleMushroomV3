@@ -62,9 +62,9 @@ public class OneEpochInfoAreaVM extends Table {
         // ------ update text ------
         mainClickerPart.clearChildren();
         if (epochConfig != null) {
-            epochInfoLabel.setText(game.getIdleMushroomExtraGameplayExport().getEpochCounterConstruction()
+            epochInfoLabel.setText(game.getIdleMushroomExtraGameplayManager().getEpochCounterConstruction()
                     .getDescriptionPackage().getExtraTexts().get(0) + epochConfig.getEnlargementLevel());
-            maxLevelLabel.setText(game.getIdleMushroomExtraGameplayExport().getEpochCounterConstruction()
+            maxLevelLabel.setText(game.getIdleMushroomExtraGameplayManager().getEpochCounterConstruction()
                     .getDescriptionPackage().getExtraTexts().get(1) + epochConfig.getMaxLevel());
             String buffLabelText = epochConfig.getBuffEpochConfigMap().entrySet().stream()
                             .map(it -> {
@@ -74,8 +74,8 @@ public class OneEpochInfoAreaVM extends Table {
                             .collect(Collectors.joining("\n"));
             buffLabel.setText(buffLabelText);
             ConstructionDetailPartVM.resourcePackAsActor(
-                    game.getIdleMushroomExtraGameplayExport().getMainClickerConstruction().getDescriptionPackage().getOutputGainDescriptionStart(),
-                    game.getIdleMushroomExtraGameplayExport().getMainClickerConstruction().getOutputComponent().getOutputGainPack(),
+                    game.getIdleMushroomExtraGameplayManager().getMainClickerConstruction().getDescriptionPackage().getOutputGainDescriptionStart(),
+                    game.getIdleMushroomExtraGameplayManager().getMainClickerConstruction().getOutputComponent().getOutputGainPack(),
                     mainClickerPart, game, isPreviewNextLevel);
         } else {
             epochInfoLabel.setText("");

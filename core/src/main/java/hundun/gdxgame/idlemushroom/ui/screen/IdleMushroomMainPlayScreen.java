@@ -122,7 +122,7 @@ public class IdleMushroomMainPlayScreen extends BaseIdleMushroomPlayScreen
 
     public void setMainClickerWithScale() {
         if (middleGroup != null) {
-            int enlargementLevel = game.getIdleMushroomExtraGameplayExport().getCurrentRootEpochConfig().getEnlargementLevel();
+            int enlargementLevel = game.getIdleMushroomExtraGameplayManager().getCurrentRootEpochConfig().getEnlargementLevel();
             middleGroup.clearChildren();
             middleGroup.add(mainClickerAnimationVM).size(64 * enlargementLevel, 64 * enlargementLevel);
         }

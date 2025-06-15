@@ -136,7 +136,7 @@ public class MainScreenConstructionControlBoard extends Table
                 public void changed(ChangeEvent event, Actor actor) {
                     Gdx.app.log(SellerPart.class.getSimpleName(), "upgradeButton changed");
                     model.getUpgradeComponent().doUpgrade();
-                    parent.getGame().getIdleMushroomExtraGameplayExport().doChangeEpoch(model.getSaveData().getLevel());
+                    parent.getGame().getIdleMushroomExtraGameplayManager().doChangeEpoch(model.getSaveData().getLevel());
                 }
             });
 

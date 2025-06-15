@@ -1,6 +1,7 @@
 package hundun.gdxgame.idlemushroom;
 
 import com.badlogic.gdx.utils.Null;
+import hundun.gdxgame.idleshare.gamelib.export.IdleGameplayExport;
 import hundun.gdxgame.libv3.gamelib.base.util.JavaFeatureForGwt;
 import hundun.gdxgame.libv3.gamelib.starter.listerner.IGameStartListener;
 import hundun.gdxgame.idlemushroom.IdleMushroomGame.BuffEpochConfig;
@@ -8,7 +9,7 @@ import hundun.gdxgame.idlemushroom.IdleMushroomGame.ConstructionEpochConfig;
 import hundun.gdxgame.idlemushroom.IdleMushroomGame.RootEpochConfig;
 import hundun.gdxgame.idlemushroom.logic.id.IdleMushroomBuffId;
 import hundun.gdxgame.idlemushroom.logic.id.IdleMushroomConstructionPrototypeId;
-import hundun.gdxgame.idleshare.core.framework.StarterIdleFrontend;
+import hundun.gdxgame.idleshare.core.framework.HundunIdleFrontend;
 import hundun.gdxgame.idleshare.gamelib.framework.model.construction.base.BaseConstruction;
 import lombok.Getter;
 
@@ -16,7 +17,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class IdleMushroomExtraGameplayExport extends StarterIdleFrontend implements IGameStartListener {
+/**
+ * 一方面，拓展一些Gameplay机制，封装好，提供给{@link IdleMushroomGame}；
+ * 另一方面，作为{@link HundunIdleFrontend}的实现，被{@link IdleGameplayExport}使用;
+ */
+public class IdleMushroomExtraGameplayManager extends HundunIdleFrontend implements IGameStartListener {
     IdleMushroomGame idleMushroomGame;
     private final Map<Integer, RootEpochConfig> epochConfigMap;
     public static final int EPOCH_COUNTER_MAX_LEVEL = 20;
@@ -42,7 +47,7 @@ public class IdleMushroomExtraGameplayExport extends StarterIdleFrontend impleme
     // for quick ref
     @Getter
     BaseConstruction autoSellerConstruction;
-    IdleMushroomExtraGameplayExport(IdleMushroomGame idleMushroomGame) {
+    IdleMushroomExtraGameplayManager(IdleMushroomGame idleMushroomGame) {
         super(idleMushroomGame);
         this.idleMushroomGame = idleMushroomGame;
         this.epochConfigMap = new HashMap<>();

@@ -36,8 +36,8 @@ public class EpochConstructionWikiVM extends Table {
     }
 
     public void rebuildCells(BaseConstruction epochCounterConstruction) {
-        RootEpochConfig epochConfig = game.getIdleMushroomExtraGameplayExport().getCurrentRootEpochConfig();
-        RootEpochConfig nextEpochConfig = game.getIdleMushroomExtraGameplayExport().getNextRootEpochConfig();
+        RootEpochConfig epochConfig = game.getIdleMushroomExtraGameplayManager().getCurrentRootEpochConfig();
+        RootEpochConfig nextEpochConfig = game.getIdleMushroomExtraGameplayManager().getNextRootEpochConfig();
         titleLabel.setText(epochCounterConstruction.getDescriptionPackage().getWikiText());
         currentLevelInfoAreaVM.updateAsConstruction(epochConfig, false);
         midPart.clearChildren();

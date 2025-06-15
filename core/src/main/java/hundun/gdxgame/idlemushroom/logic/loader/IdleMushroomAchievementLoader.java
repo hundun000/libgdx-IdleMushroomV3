@@ -1,7 +1,7 @@
 package hundun.gdxgame.idlemushroom.logic.loader;
 
 import hundun.gdxgame.libv3.gamelib.base.util.JavaFeatureForGwt;
-import hundun.gdxgame.idlemushroom.IdleMushroomExtraGameplayExport;
+import hundun.gdxgame.idlemushroom.IdleMushroomExtraGameplayManager;
 import hundun.gdxgame.idlemushroom.logic.IdleMushroomGameDictionary;
 import hundun.gdxgame.idlemushroom.logic.id.IdleMushroomAchievementId;
 import hundun.gdxgame.idlemushroom.logic.id.IdleMushroomConstructionPrototypeId;
@@ -49,7 +49,7 @@ public class IdleMushroomAchievementLoader implements IAchievementPrototypeLoade
                 ));
                 textMap.put(IdleMushroomAchievementId.STEP_2, JavaFeatureForGwt.listOf(
                         "NO.2",
-                        JavaFeatureForGwt.stringFormat("{PrototypeName}达到等级%s。", IdleMushroomExtraGameplayExport.EPOCH_COUNTER_SPECIAL_LEVEL_0),
+                        JavaFeatureForGwt.stringFormat("{PrototypeName}达到等级%s。", IdleMushroomExtraGameplayManager.EPOCH_COUNTER_SPECIAL_LEVEL_0),
                         "你完成了任务NO.2。",
                         IdleMushroomConstructionPrototypeId.EPOCH_COUNTER
                 ));
@@ -61,19 +61,19 @@ public class IdleMushroomAchievementLoader implements IAchievementPrototypeLoade
                 ));
                 textMap.put(IdleMushroomAchievementId.STEP_4, JavaFeatureForGwt.listOf(
                         "NO.4",
-                        JavaFeatureForGwt.stringFormat("{PrototypeName}达到等级%s。", IdleMushroomExtraGameplayExport.EPOCH_COUNTER_SPECIAL_LEVEL_1),
+                        JavaFeatureForGwt.stringFormat("{PrototypeName}达到等级%s。", IdleMushroomExtraGameplayManager.EPOCH_COUNTER_SPECIAL_LEVEL_1),
                         "你完成了任务NO.4。",
                         IdleMushroomConstructionPrototypeId.EPOCH_COUNTER
                 ));
                 textMap.put(IdleMushroomAchievementId.STEP_5, JavaFeatureForGwt.listOf(
                         "NO.5",
-                        JavaFeatureForGwt.stringFormat("{PrototypeName}达到等级%s。", IdleMushroomExtraGameplayExport.EPOCH_COUNTER_SPECIAL_LEVEL_2),
+                        JavaFeatureForGwt.stringFormat("{PrototypeName}达到等级%s。", IdleMushroomExtraGameplayManager.EPOCH_COUNTER_SPECIAL_LEVEL_2),
                         "你完成了任务NO.5。",
                         IdleMushroomConstructionPrototypeId.EPOCH_COUNTER
                 ));
                 textMap.put(IdleMushroomAchievementId.STEP_6, JavaFeatureForGwt.listOf(
                         "NO.6",
-                        JavaFeatureForGwt.stringFormat("{PrototypeName}达到等级%s。", IdleMushroomExtraGameplayExport.EPOCH_COUNTER_MAX_LEVEL),
+                        JavaFeatureForGwt.stringFormat("{PrototypeName}达到等级%s。", IdleMushroomExtraGameplayManager.EPOCH_COUNTER_MAX_LEVEL),
                         "你完成了任务NO.6。",
                         IdleMushroomConstructionPrototypeId.EPOCH_COUNTER
                 ));
@@ -87,7 +87,7 @@ public class IdleMushroomAchievementLoader implements IAchievementPrototypeLoade
                 ));
                 textMap.put(IdleMushroomAchievementId.STEP_2, JavaFeatureForGwt.listOf(
                         "NO.2",
-                        JavaFeatureForGwt.stringFormat("Into lv.%s {PrototypeName}.", IdleMushroomExtraGameplayExport.EPOCH_COUNTER_SPECIAL_LEVEL_0),
+                        JavaFeatureForGwt.stringFormat("Into lv.%s {PrototypeName}.", IdleMushroomExtraGameplayManager.EPOCH_COUNTER_SPECIAL_LEVEL_0),
                         "You completed Quest NO.2.",
                         IdleMushroomConstructionPrototypeId.EPOCH_COUNTER
                 ));
@@ -99,19 +99,19 @@ public class IdleMushroomAchievementLoader implements IAchievementPrototypeLoade
                 ));
                 textMap.put(IdleMushroomAchievementId.STEP_4, JavaFeatureForGwt.listOf(
                         "NO.4",
-                        JavaFeatureForGwt.stringFormat("Into lv.%s {PrototypeName}.", IdleMushroomExtraGameplayExport.EPOCH_COUNTER_SPECIAL_LEVEL_1),
+                        JavaFeatureForGwt.stringFormat("Into lv.%s {PrototypeName}.", IdleMushroomExtraGameplayManager.EPOCH_COUNTER_SPECIAL_LEVEL_1),
                         "You completed Quest NO.4.",
                         IdleMushroomConstructionPrototypeId.EPOCH_COUNTER
                 ));
                 textMap.put(IdleMushroomAchievementId.STEP_5, JavaFeatureForGwt.listOf(
                         "NO.5",
-                        JavaFeatureForGwt.stringFormat("Into lv.%s {PrototypeName}.", IdleMushroomExtraGameplayExport.EPOCH_COUNTER_SPECIAL_LEVEL_2),
+                        JavaFeatureForGwt.stringFormat("Into lv.%s {PrototypeName}.", IdleMushroomExtraGameplayManager.EPOCH_COUNTER_SPECIAL_LEVEL_2),
                         "You completed Quest NO.5.",
                         IdleMushroomConstructionPrototypeId.EPOCH_COUNTER
                 ));
                 textMap.put(IdleMushroomAchievementId.STEP_6, JavaFeatureForGwt.listOf(
                         "NO.6",
-                        JavaFeatureForGwt.stringFormat("Into lv.%s {PrototypeName}.", IdleMushroomExtraGameplayExport.EPOCH_COUNTER_MAX_LEVEL),
+                        JavaFeatureForGwt.stringFormat("Into lv.%s {PrototypeName}.", IdleMushroomExtraGameplayManager.EPOCH_COUNTER_MAX_LEVEL),
                         "You completed Quest NO.6.",
                         IdleMushroomConstructionPrototypeId.EPOCH_COUNTER
                 ));
@@ -139,7 +139,7 @@ public class IdleMushroomAchievementLoader implements IAchievementPrototypeLoade
                 IdleMushroomAchievementId.STEP_2,
                 textMap,
                 JavaFeatureForGwt.mapOf(
-                        IdleMushroomConstructionPrototypeId.EPOCH_COUNTER, new SimpleEntry<>(1, IdleMushroomExtraGameplayExport.EPOCH_COUNTER_SPECIAL_LEVEL_0)
+                        IdleMushroomConstructionPrototypeId.EPOCH_COUNTER, new SimpleEntry<>(1, IdleMushroomExtraGameplayManager.EPOCH_COUNTER_SPECIAL_LEVEL_0)
                 ),
                 JavaFeatureForGwt.listOf(IdleMushroomAchievementId.STEP_3),
                 new ResourcePair(ResourceType.MUSHROOM, 200L)
@@ -159,7 +159,7 @@ public class IdleMushroomAchievementLoader implements IAchievementPrototypeLoade
                 IdleMushroomAchievementId.STEP_4,
                 textMap,
                 JavaFeatureForGwt.mapOf(
-                        IdleMushroomConstructionPrototypeId.EPOCH_COUNTER, new SimpleEntry<>(1, IdleMushroomExtraGameplayExport.EPOCH_COUNTER_SPECIAL_LEVEL_1)
+                        IdleMushroomConstructionPrototypeId.EPOCH_COUNTER, new SimpleEntry<>(1, IdleMushroomExtraGameplayManager.EPOCH_COUNTER_SPECIAL_LEVEL_1)
                 ),
                 JavaFeatureForGwt.listOf(IdleMushroomAchievementId.STEP_5),
                 new ResourcePair(ResourceType.MUSHROOM, 1600L)
@@ -169,7 +169,7 @@ public class IdleMushroomAchievementLoader implements IAchievementPrototypeLoade
                 IdleMushroomAchievementId.STEP_5,
                 textMap,
                 JavaFeatureForGwt.mapOf(
-                        IdleMushroomConstructionPrototypeId.EPOCH_COUNTER, new SimpleEntry<>(1, IdleMushroomExtraGameplayExport.EPOCH_COUNTER_SPECIAL_LEVEL_2)
+                        IdleMushroomConstructionPrototypeId.EPOCH_COUNTER, new SimpleEntry<>(1, IdleMushroomExtraGameplayManager.EPOCH_COUNTER_SPECIAL_LEVEL_2)
                 ),
                 JavaFeatureForGwt.listOf(IdleMushroomAchievementId.STEP_6),
                 new ResourcePair(ResourceType.MUSHROOM, 6400L)
@@ -179,7 +179,7 @@ public class IdleMushroomAchievementLoader implements IAchievementPrototypeLoade
                 IdleMushroomAchievementId.STEP_6,
                 textMap,
                 JavaFeatureForGwt.mapOf(
-                        IdleMushroomConstructionPrototypeId.EPOCH_COUNTER, new SimpleEntry<>(1, IdleMushroomExtraGameplayExport.EPOCH_COUNTER_MAX_LEVEL)
+                        IdleMushroomConstructionPrototypeId.EPOCH_COUNTER, new SimpleEntry<>(1, IdleMushroomExtraGameplayManager.EPOCH_COUNTER_MAX_LEVEL)
                 ),
                 null,
                 new ResourcePair(ResourceType.MUSHROOM, 1000000L)
