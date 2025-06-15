@@ -20,6 +20,8 @@ public class DesktopProxyManagerCallback implements IProxyManagerCallback {
 
     @Override
     public void onProxyCauseExit(IdleMushroomGame game) {
-        System.out.println(this.jsonTool.prettyPrint(game.getHistoryManager().getProxyRunRecords()));
+        System.out.println(this.jsonTool.prettyPrint(
+            game.getIdleGameplayExport().getGameplayContext().getHistoryManager().getProxyRunRecords()
+        ));
     }
 }

@@ -1,13 +1,16 @@
 package hundun.gdxgame.idlemushroom.logic;
 
 import com.badlogic.gdx.Gdx;
+import hundun.gdxgame.idleshare.gamelib.framework.model.history.HistoryManager.ConstructionSituation;
+import hundun.gdxgame.idleshare.gamelib.framework.model.history.HistoryManager.ProxyGameSituationDTO;
 import hundun.gdxgame.libv3.gamelib.base.util.JavaFeatureForGwt;
 import hundun.gdxgame.idlemushroom.IdleMushroomGame;
-import hundun.gdxgame.idlemushroom.logic.HistoryManager.ProxyActionType;
+import hundun.gdxgame.idleshare.gamelib.framework.model.history.HistoryManager.ProxyActionType;
 import hundun.gdxgame.idlemushroom.logic.id.IdleMushroomConstructionPrototypeId;
 import hundun.gdxgame.idleshare.gamelib.framework.model.construction.base.BaseConstruction;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -129,7 +132,7 @@ public class ProxyManager {
                             })
                             .findFirst()
                             .ifPresent(constructionBuyCandidateConfig -> {
-                                game.getHistoryManager().addProxyRunRecord(
+                                game.getIdleGameplayExport().getGameplayContext().getHistoryManager().addProxyRunRecord(
                                         ProxyActionType.buyInstanceOfPrototype,
                                         constructionBuyCandidateConfig.getPrototypeId(),
                                         model.getPosition()
@@ -170,7 +173,7 @@ public class ProxyManager {
         }
         int afterLevel = model.getSaveData().getWorkingLevel();
         if (beforeLevel != afterLevel) {
-            game.getHistoryManager().addProxyRunRecord(
+            game.getIdleGameplayExport().getGameplayContext().getHistoryManager().addProxyRunRecord(
                     ProxyActionType.changeWorkingLevel,
                     model.getPrototypeId(),
                     "beforeLevel=" + beforeLevel,
@@ -187,7 +190,7 @@ public class ProxyManager {
             game.getIdleMushroomExtraGameplayExport().doChangeEpoch(model.getSaveData().getLevel());
         }
         int afterLevel = model.getSaveData().getLevel();
-        game.getHistoryManager().addProxyRunRecord(
+        game.getIdleGameplayExport().getGameplayContext().getHistoryManager().addProxyRunRecord(
                 ProxyActionType.doUpgrade,
                 model.getPrototypeId(),
                 model.getPosition(),
@@ -216,6 +219,37 @@ public class ProxyManager {
         return false;
     }
 
+    private ProxyGameSituationDTO rootSaveDataToSituation(RootSaveData rootSaveData) {
+        if (rootSaveData == null) {
+            return null;
+        }
+        List<ConstructionSituation> constructionSituations = rootSaveData.getGameplaySave().getConstructionSaveDataMap().values().stream()
+            .filter(it -> it.getLevel() > 0)
+            .map(it -> ConstructionSituation.builder()
+                .prototypeId(it.prototypeId)
+                .level(it.getLevel())
+                .count(1)
+                .build()
+            )
+            .collect(Collectors.toList());
+        List<ConstructionSituation> countedConstructionSituations = new ArrayList<>();
+        constructionSituations.forEach(it -> {
+            ConstructionSituation counted = countedConstructionSituations.stream()
+                .filter(itt -> itt.getPrototypeId().equals(it.getPrototypeId()) && itt.getLevel() == it.getLevel())
+                .findAny()
+                .orElse(null);
+            if (counted == null) {
+                countedConstructionSituations.add(it);
+            } else {
+                counted.setCount(counted.getCount() + it.getCount());
+            }
+        });
+
+        return ProxyGameSituationDTO.builder()
+            .ownResources(rootSaveData.getGameplaySave().getOwnResources())
+            .constructionSituations(countedConstructionSituations)
+            .build();
+    }
 
     public void onLogicFrame() {
 
@@ -223,7 +257,8 @@ public class ProxyManager {
             if (game.getLogicFrameHelper().getClockCount() % game.getLogicFrameHelper().secondToFrameNum(config.getAutoSaveDeltaSecond()) == 0)
             {
                 RootSaveData lastSaveCurrentResult = game.getSaveHandler().gameSaveCurrent();
-                game.getHistoryManager().addProxyRunRecordTypeLogSaveCurrentResult(lastSaveCurrentResult);
+                ProxyGameSituationDTO gameSituationDTO = rootSaveDataToSituation(lastSaveCurrentResult);
+                game.getIdleGameplayExport().getGameplayContext().getHistoryManager().addProxyRunRecordTypeLogSaveCurrentResult(gameSituationDTO);
             }
         }
         if (checkStopCondition()) {
@@ -233,7 +268,7 @@ public class ProxyManager {
         if (proxyState == ProxyState.RUNNING) {
             tryAutoAction();
         } else if (proxyState == ProxyState.STOP) {
-            game.getHistoryManager().addProxyRunRecord(
+            game.getIdleGameplayExport().getGameplayContext().getHistoryManager().addProxyRunRecord(
                     ProxyActionType.proxyCauseExit
             );
             proxyManagerCallback.onProxyCauseExit(game);

@@ -1,5 +1,6 @@
 package hundun.gdxgame.idleshare.gamelib.framework;
 
+import hundun.gdxgame.idleshare.gamelib.framework.model.history.HistoryManager;
 import hundun.gdxgame.libv3.gamelib.base.IFrontend;
 import hundun.gdxgame.idleshare.gamelib.export.IIdleFrontend;
 import hundun.gdxgame.idleshare.gamelib.framework.data.ChildGameConfig;
@@ -35,6 +36,7 @@ public class IdleGameplayContext {
     final AchievementManager achievementManager;
     final BaseConstructionFactory constructionFactory;
     final ConstructionManager constructionManager;
+    final HistoryManager historyManager;
 
     @Setter
     @Getter
@@ -53,7 +55,7 @@ public class IdleGameplayContext {
         this.achievementManager = new AchievementManager(this);
         this.constructionFactory = new BaseConstructionFactory();
         this.constructionManager = new ConstructionManager(this);
-
+        this.historyManager = new HistoryManager(this);
     }
 
     public void allLazyInit(

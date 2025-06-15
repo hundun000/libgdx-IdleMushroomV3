@@ -1,3 +1,6 @@
+/idle-common/build/
+/idle-core/build/
+
 ## Gradle:
 .gradle/
 gradle-app.setting
@@ -12,7 +15,7 @@ gradle-app.setting
 /ios-moe/build/
 /headless/build/
 /server/build/
-/shared/build/
+
 
 ## Java:
 *.class

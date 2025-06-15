@@ -6,6 +6,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.ray3k.stripe.FreeTypeSkin;
 
 import hundun.gdxgame.idlemushroom.ui.shared.BaseIdleMushroomScreen;
+import hundun.gdxgame.idleshare.gamelib.framework.model.history.HistoryManager;
 import hundun.gdxgame.libv3.gamelib.base.save.ISaveTool;
 import hundun.gdxgame.libv3.gamelib.base.util.JavaFeatureForGwt;
 import hundun.gdxgame.idlemushroom.logic.*;
@@ -63,8 +64,6 @@ public class IdleMushroomGame extends BaseHundunGame<RootSaveData> {
     private final IdleMushroomExtraGameplayExport idleMushroomExtraGameplayExport;
     @Getter
     private final ProxyManager proxyManager;
-    @Getter
-    private final HistoryManager historyManager;
 
     public IdleMushroomGame(ISaveTool<RootSaveData> saveTool, IProxyManagerCallback proxyManagerCallback) {
         super(GameArg.builder()
@@ -94,7 +93,6 @@ public class IdleMushroomGame extends BaseHundunGame<RootSaveData> {
         this.proxyManager = new ProxyManager(this,
                 proxyManagerCallback
                 );
-        this.historyManager = new HistoryManager(this);
     }
 
 
@@ -145,7 +143,7 @@ public class IdleMushroomGame extends BaseHundunGame<RootSaveData> {
         textureManager.lazyInitOnGameCreateStage2();
 
         idleMushroomExtraGameplayExport.lazyInitStage2();
-        this.getIdleGameplayExport().getGameplayContext().getEventManager().registerListener(historyManager);
+        this.getIdleGameplayExport().getGameplayContext().getEventManager().registerListener(this.getIdleGameplayExport().getGameplayContext().getHistoryManager());
         screenContext.lazyInit();
     }
 
@@ -168,6 +166,5 @@ public class IdleMushroomGame extends BaseHundunGame<RootSaveData> {
         source.onLogicFrame();
         idleGameplayExport.onLogicFrame();
         proxyManager.onLogicFrame();
-        historyManager.onLogicFrame();
     }
 }

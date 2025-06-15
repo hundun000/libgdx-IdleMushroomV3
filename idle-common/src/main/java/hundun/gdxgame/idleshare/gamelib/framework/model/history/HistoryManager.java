@@ -1,8 +1,8 @@
-package hundun.gdxgame.idlemushroom.logic;
+package hundun.gdxgame.idleshare.gamelib.framework.model.history;
 
+import hundun.gdxgame.idleshare.gamelib.framework.IdleGameplayContext;
 import hundun.gdxgame.libv3.gamelib.base.util.JavaFeatureForGwt;
 import hundun.gdxgame.libv3.gamelib.starter.listerner.ILogicFrameListener;
-import hundun.gdxgame.idlemushroom.IdleMushroomGame;
 import hundun.gdxgame.idleshare.gamelib.framework.listener.IResourceChangeListener;
 import hundun.gdxgame.idleshare.gamelib.framework.model.event.EventManager.OneSecondResourceChangeEvent;
 import hundun.gdxgame.idleshare.gamelib.framework.model.event.EventManager.OneSecondResourceChangeEventOneTagData;
@@ -22,19 +22,19 @@ import java.util.stream.Collectors;
  */
 public class HistoryManager implements IResourceChangeListener, ILogicFrameListener {
     private final List<OneSecondResourceChangeEventOneTagData> outputHistoryList = new ArrayList<>();
-    private final IdleMushroomGame game;
+    private final IdleGameplayContext gameplayContext;
     @Getter
     private List<ProxyRunRecord> proxyRunRecords = new ArrayList<>();
 
 
-    public HistoryManager(IdleMushroomGame game) {
-        this.game = game;
+    public HistoryManager(IdleGameplayContext gameplayContext) {
+        this.gameplayContext = gameplayContext;
     }
 
     public void addProxyRunRecord(ProxyActionType actionType, Object... extras) {
         proxyRunRecords.add(
                 ProxyRunRecord.builder()
-                        .second(game.getIdleGameplayExport().getGameplayContext().getIdleFrontend().getSecond())
+                        .second(gameplayContext.getIdleFrontend().getSecond())
                         .actionType(actionType)
                         .extra(JavaFeatureForGwt.listOf(extras).stream()
                                 .map(it -> it.toString())
@@ -44,12 +44,12 @@ public class HistoryManager implements IResourceChangeListener, ILogicFrameListe
         );
     }
 
-    public void addProxyRunRecordTypeLogSaveCurrentResult(RootSaveData lastSaveCurrentResult) {
+    public void addProxyRunRecordTypeLogSaveCurrentResult(ProxyGameSituationDTO gameSituationDTO) {
         proxyRunRecords.add(
                 ProxyRunRecord.builder()
-                        .second(game.getIdleGameplayExport().getGameplayContext().getIdleFrontend().getSecond())
+                        .second(gameplayContext.getIdleFrontend().getSecond())
                         .actionType(ProxyActionType.LogSaveCurrentResult)
-                        .situation(rootSaveDataToSituation(lastSaveCurrentResult))
+                        .situation(gameSituationDTO)
                         .build()
         );
     }
@@ -68,7 +68,7 @@ public class HistoryManager implements IResourceChangeListener, ILogicFrameListe
         outputHistoryList.clear();
         proxyRunRecords.add(
                 ProxyRunRecord.builder()
-                        .second(game.getIdleGameplayExport().getGameplayContext().getIdleFrontend().getSecond())
+                        .second(gameplayContext.getIdleFrontend().getSecond())
                         .actionType(ProxyActionType.LogResourcesDeltaMap)
                         .avgResourceDeltaMap(avgResourceDeltaMap)
                         .build()
@@ -80,43 +80,13 @@ public class HistoryManager implements IResourceChangeListener, ILogicFrameListe
         outputHistoryList.add(event.getTagDataMap().get(ModifyResourceTag.OUTPUT));
     }
 
-    private ProxyGameSituationDTO rootSaveDataToSituation(RootSaveData rootSaveData) {
-        if (rootSaveData == null) {
-            return null;
-        }
-        List<ConstructionSituation> constructionSituations = rootSaveData.getGameplaySave().getConstructionSaveDataMap().values().stream()
-                .filter(it -> it.getLevel() > 0)
-                .map(it -> ConstructionSituation.builder()
-                        .prototypeId(it.prototypeId)
-                        .level(it.getLevel())
-                        .count(1)
-                        .build()
-                )
-                .collect(Collectors.toList());
-        List<ConstructionSituation> countedConstructionSituations = new ArrayList<>();
-        constructionSituations.forEach(it -> {
-            ConstructionSituation counted = countedConstructionSituations.stream()
-                    .filter(itt -> itt.getPrototypeId().equals(it.getPrototypeId()) && itt.getLevel() == it.getLevel())
-                    .findAny()
-                    .orElse(null);
-            if (counted == null) {
-                countedConstructionSituations.add(it);
-            } else {
-                counted.setCount(counted.getCount() + it.getCount());
-            }
-        });
 
-        return ProxyGameSituationDTO.builder()
-                .ownResources(rootSaveData.getGameplaySave().getOwnResources())
-                .constructionSituations(countedConstructionSituations)
-                .build();
-    }
 
     public void onLogicFrame() {
         // try LogSaveCurrentResult
-        if (game.getIdleGameplayExport().getGameplayContext().getIdleFrontend().modLogicFrameSecondZero(5))
+        if (gameplayContext.getIdleFrontend().modLogicFrameSecondZero(5))
         {
-            game.getHistoryManager().addProxyRunRecordTypeLogResourcesDeltaMap();
+            this.addProxyRunRecordTypeLogResourcesDeltaMap();
         }
     }
 
