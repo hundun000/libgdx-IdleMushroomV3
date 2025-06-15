@@ -129,7 +129,6 @@ public class IdleMushroomAchievementLoader implements IAchievementPrototypeLoade
         OwnConstructionAchievementPrototype.Companion.quickAddOwnConstructionAchievement(
                 map,
                 IdleMushroomAchievementId.STEP_1,
-                textMap,
                 JavaFeatureForGwt.mapOf(
                         EPOCH_ANY_MUSHROOM_AUTO_PROVIDER, new SimpleEntry<>(2, 1)
                 ),
@@ -139,7 +138,6 @@ public class IdleMushroomAchievementLoader implements IAchievementPrototypeLoade
         OwnConstructionAchievementPrototype.Companion.quickAddOwnConstructionAchievement(
                 map,
                 IdleMushroomAchievementId.STEP_2,
-                textMap,
                 JavaFeatureForGwt.mapOf(
                         IdleMushroomConstructionPrototypeId.EPOCH_COUNTER, new SimpleEntry<>(1, IdleMushroomExtraGameplayManager.EPOCH_COUNTER_SPECIAL_LEVEL_0)
                 ),
@@ -149,7 +147,6 @@ public class IdleMushroomAchievementLoader implements IAchievementPrototypeLoade
         OwnConstructionAchievementPrototype.Companion.quickAddOwnConstructionAchievement(
                 map,
                 IdleMushroomAchievementId.STEP_3,
-                textMap,
                 JavaFeatureForGwt.mapOf(
                         EPOCH_ANY_MUSHROOM_AUTO_PROVIDER, new SimpleEntry<>(2, 2)
                 ),
@@ -159,7 +156,6 @@ public class IdleMushroomAchievementLoader implements IAchievementPrototypeLoade
         OwnConstructionAchievementPrototype.Companion.quickAddOwnConstructionAchievement(
                 map,
                 IdleMushroomAchievementId.STEP_4,
-                textMap,
                 JavaFeatureForGwt.mapOf(
                         IdleMushroomConstructionPrototypeId.EPOCH_COUNTER, new SimpleEntry<>(1, IdleMushroomExtraGameplayManager.EPOCH_COUNTER_SPECIAL_LEVEL_1)
                 ),
@@ -169,7 +165,6 @@ public class IdleMushroomAchievementLoader implements IAchievementPrototypeLoade
         OwnConstructionAchievementPrototype.Companion.quickAddOwnConstructionAchievement(
                 map,
                 IdleMushroomAchievementId.STEP_5,
-                textMap,
                 JavaFeatureForGwt.mapOf(
                         IdleMushroomConstructionPrototypeId.EPOCH_COUNTER, new SimpleEntry<>(1, IdleMushroomExtraGameplayManager.EPOCH_COUNTER_SPECIAL_LEVEL_2)
                 ),
@@ -179,7 +174,6 @@ public class IdleMushroomAchievementLoader implements IAchievementPrototypeLoade
         OwnConstructionAchievementPrototype.Companion.quickAddOwnConstructionAchievement(
                 map,
                 IdleMushroomAchievementId.STEP_6,
-                textMap,
                 JavaFeatureForGwt.mapOf(
                         IdleMushroomConstructionPrototypeId.EPOCH_COUNTER, new SimpleEntry<>(1, IdleMushroomExtraGameplayManager.EPOCH_COUNTER_MAX_LEVEL)
                 ),

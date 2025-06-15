@@ -5,6 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Null;
 import hundun.gdxgame.idlemushroom.ui.shared.BaseIdleMushroomScreen;
 import hundun.gdxgame.idleshare.gamelib.framework.model.achievement.AchievementManager.AchievementAndStatus;
+import hundun.gdxgame.idleshare.gamelib.framework.model.construction.base.DescriptionPackage;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -31,7 +32,6 @@ public class OneAchievementNodeVM extends Table {
         this.parent = parent;
         this.setBackground(parent.getGame().getTextureManager().getDefaultBoardNinePatchDrawable());
         this.achievementAndStatus = achievementAndStatus;
-
         this.texts = parent.getGame().getIdleMushroomGameDictionary()
                 .getAchievementTexts(parent.getGame().getIdleGameplayExport().getLocale());
         this.setBackground(parent.getGame().getTextureManager().getTableType3Drawable());
@@ -76,8 +76,9 @@ public class OneAchievementNodeVM extends Table {
 
         if (achievementAndStatus != null)
         {
-            nameValueLabel.setText(achievementAndStatus.getAchievement().getName());
-            descriptionLabel.setText(achievementAndStatus.getAchievement().getDescription());
+            DescriptionPackage descriptionPackage = parent.getGame().getIdleMushroomExtraGameplayManager().getAchievementDescriptionPackage(achievementAndStatus.getAchievement().getId());
+            nameValueLabel.setText(descriptionPackage.getName());
+            descriptionLabel.setText(descriptionPackage.getWikiText());
             countValueLabel.setText(
                     parent.getGame().getIdleMushroomGameDictionary().achievementStatus(
                             parent.getGame().getIdleGameplayExport().getLocale(),

@@ -13,9 +13,11 @@ import com.badlogic.gdx.utils.Null;
 import hundun.gdxgame.idlemushroom.ui.shared.BaseIdleMushroomPlayScreen;
 import hundun.gdxgame.idlemushroom.ui.shared.ConstructionDetailPartVM.IdleMushroomResourceAmountPairNode;
 import hundun.gdxgame.idleshare.gamelib.framework.model.achievement.AbstractAchievementPrototype;
+import hundun.gdxgame.idleshare.gamelib.framework.model.construction.base.DescriptionPackage;
 import hundun.gdxgame.idleshare.gamelib.framework.model.resource.ResourcePair;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author hundun
@@ -40,8 +42,10 @@ public class AchievementPopupBoard extends Table {
 
     private void rebuildUi(@Null AbstractAchievementPrototype prototype) {
         this.clearChildren();
-
-        Label label = new Label(prototype != null ? prototype.getDescription() : "", parent.getGame().getMainSkin());
+        DescriptionPackage descriptionPackage = Optional.ofNullable(prototype)
+            .map(it -> parent.getGame().getIdleMushroomExtraGameplayManager().getAchievementDescriptionPackage(it.getId()))
+            .orElse(null);
+        Label label = new Label(descriptionPackage != null ? descriptionPackage.getWikiText() : "", parent.getGame().getMainSkin());
         this.add(label).center().row();
 
         if (prototype != null && prototype.getAwardResourceMap() != null) {

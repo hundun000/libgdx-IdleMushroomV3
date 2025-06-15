@@ -55,23 +55,14 @@ public class EpochCounterPrototype extends AbstractConstructionPrototype {
 
     public EpochCounterPrototype(Locale language) {
         super(
-                IdleMushroomConstructionPrototypeId.EPOCH_COUNTER,
-                language
+                IdleMushroomConstructionPrototypeId.EPOCH_COUNTER
         );
-        switch (language.getLanguage())
-        {
-            case LanguageCode.CHINESE:
-                this.descriptionPackage = descriptionPackageCN;
-                break;
-            default:
-                this.descriptionPackage = descriptionPackageEN;
-                break;
-        }
+
 
     }
 
     @Override
-    public BaseConstruction getInstance(GridPosition position) {
+    public BaseConstruction getInstance(GridPosition position, DescriptionPackage descriptionPackage) {
         String id = prototypeId + "_" + IdleMushroomJavaFeatureForGwt.uuid();
 
         BaseIdleMushroomConstruction construction = new BaseIdleMushroomConstruction(prototypeId, id, position, descriptionPackage);

@@ -33,25 +33,16 @@ public class TreePrototype extends AbstractConstructionPrototype {
             .proficiencyDescriptionProvider(DescriptionPackageFactory.CN_PROFICIENCY_IMP.build())
             .build();
 
-    public TreePrototype(String prototypeId, Locale language) {
+    public TreePrototype(String prototypeId) {
         super(
-                prototypeId,
-                language
+                prototypeId
         );
-        switch (language.getLanguage())
-        {
-            case LanguageCode.CHINESE:
-                this.descriptionPackage = descriptionPackageCN;
-                break;
-            default:
-                this.descriptionPackage = descriptionPackageEN;
-                break;
-        }
+
 
     }
 
     @Override
-    public BaseConstruction getInstance(GridPosition position) {
+    public BaseConstruction getInstance(GridPosition position, DescriptionPackage descriptionPackage) {
         String id = prototypeId + "_" + IdleMushroomJavaFeatureForGwt.uuid();
 
         BaseIdleMushroomConstruction thiz = new BaseIdleMushroomConstruction(prototypeId, id, position, descriptionPackage);

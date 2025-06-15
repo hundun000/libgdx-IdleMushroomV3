@@ -1,7 +1,12 @@
 package hundun.gdxgame.idlemushroom;
 
 import com.badlogic.gdx.utils.Null;
+import hundun.gdxgame.idlemushroom.logic.prototype.AutoProviderPrototype;
 import hundun.gdxgame.idleshare.gamelib.export.IdleGameplayExport;
+import hundun.gdxgame.idleshare.gamelib.framework.model.construction.base.DescriptionPackage;
+import hundun.gdxgame.idleshare.gamelib.framework.model.construction.base.DescriptionPackage.LevelDescriptionPackage;
+import hundun.gdxgame.idleshare.gamelib.framework.model.construction.base.DescriptionPackage.ProficiencyDescriptionPackage;
+import hundun.gdxgame.idleshare.gamelib.framework.model.construction.base.DescriptionPackageFactory;
 import hundun.gdxgame.libv3.gamelib.base.util.JavaFeatureForGwt;
 import hundun.gdxgame.libv3.gamelib.starter.listerner.IGameStartListener;
 import hundun.gdxgame.idlemushroom.IdleMushroomGame.BuffEpochConfig;
@@ -217,6 +222,42 @@ public class IdleMushroomExtraGameplayManager extends HundunIdleFrontend impleme
     public void postConstructionCreate(BaseConstruction construction) {
         handleEpochConfigMaxLevel(construction);
         construction.updateModifiedValues();
+    }
+
+    @Override
+    public DescriptionPackage getConstructionDescriptionPackage(String prototypeId) {
+        // TODO
+        return DescriptionPackage.builder()
+            .name("TODO.蘑菇地块")
+            .wikiText("TODO.介绍")
+            .upgradeButtonText("TODO.升级")
+            .outputCostDescriptionStart("TODO.消耗")
+            .outputGainDescriptionStart("TODO.产出")
+            .upgradeCostDescriptionStart("TODO.升级费用")
+            .upgradeMaxLevelDescription("(TODO.已达到最大等级)")
+            .extraTexts(JavaFeatureForGwt.listOf("TODO.可转变："))
+            .levelDescriptionProvider(LevelDescriptionPackage.builder()
+                .levelPart("TODO.等级{0}")
+                .reachedMaxLevelPart("(TODO.最大)")
+                .activeLevelPart("TODO.启用: {0}")
+                .build())
+            .proficiencyDescriptionProvider(ProficiencyDescriptionPackage.builder()
+                .proficiencyPart("效率: {0)")
+                .formatPercentage(true)
+                .proficiencyPart("Growth: {0}%")
+                .build())
+            .build();
+    }
+
+    @Override
+    public DescriptionPackage getAchievementDescriptionPackage(String prototypeId) {
+        // TODO
+        return DescriptionPackage.builder()
+            .name("TODO.NO.1")
+            .wikiText("TODO.拥有2个等级1的{PrototypeName}")
+            .upgradeButtonText("TODO.你完成了任务NO.1。")
+            .outputCostDescriptionStart(IdleMushroomConstructionPrototypeId.EPOCH_1_MUSHROOM_AUTO_PROVIDER)
+            .build();
     }
 
     private void handleEpochConfigMaxLevel(BaseConstruction construction) {

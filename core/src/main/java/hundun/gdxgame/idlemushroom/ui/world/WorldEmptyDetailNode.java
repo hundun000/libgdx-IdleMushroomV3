@@ -13,6 +13,7 @@ import hundun.gdxgame.idlemushroom.ui.shared.ConstructionDetailPartVM;
 import hundun.gdxgame.idleshare.core.framework.StarterSecondaryInfoBoardCallerClickListener;
 import hundun.gdxgame.idleshare.gamelib.framework.data.ChildGameConfig.ConstructionBuyCandidateConfig;
 import hundun.gdxgame.idleshare.gamelib.framework.model.construction.base.BaseConstruction;
+import hundun.gdxgame.idleshare.gamelib.framework.model.construction.base.DescriptionPackage;
 import hundun.gdxgame.idleshare.gamelib.framework.model.grid.GridPosition;
 
 import java.util.ArrayList;
@@ -131,6 +132,7 @@ public class WorldEmptyDetailNode extends BaseCellDetailNodeVM {
         Label constructionNameLabel;
         TextButton buyButton;
         ConstructionBuyCandidateConfig constructionBuyCandidateConfig;
+        DescriptionPackage descriptionPackage;
         Table costPart;
         public WorldBuyConstructionInfoNodeVM(
                 BaseIdleMushroomPlayScreen parent,
@@ -141,6 +143,7 @@ public class WorldEmptyDetailNode extends BaseCellDetailNodeVM {
             final IdleMushroomPlayScreenLayoutConst playScreenLayoutConst = parent.getLayoutConst();
             this.parent = parent;
             this.constructionBuyCandidateConfig = constructionBuyCandidateConfig;
+            this.descriptionPackage = parent.getGame().getIdleMushroomExtraGameplayManager().getConstructionDescriptionPackage(constructionBuyCandidateConfig.getPrototypeId());
             this.model = model;
 
             int CHILD_WIDTH = playScreenLayoutConst.CONSTRUCION_CHILD_WIDTH;
@@ -182,14 +185,9 @@ public class WorldEmptyDetailNode extends BaseCellDetailNodeVM {
                 //Gdx.app.log("ConstructionView", model.getDescriptionPackage().getName() + " set to its view");
             }
             // ------ update text ------
+
             constructionNameLabel.setText(
-                    parent.getGame()
-                            .getIdleGameplayExport()
-                            .getGameplayContext()
-                            .getConstructionFactory()
-                            .getPrototype(constructionBuyCandidateConfig.getPrototypeId())
-                            .getDescriptionPackage()
-                            .getName()
+                descriptionPackage.getName()
             );
             costPart.clearChildren();
             ConstructionDetailPartVM.resourcePackAsActor(

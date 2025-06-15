@@ -67,25 +67,16 @@ public class AutoProviderPrototype extends AbstractConstructionPrototype {
 
 
 
-    public AutoProviderPrototype(String prototypeId, Locale language) {
+    public AutoProviderPrototype(String prototypeId) {
         super(
-                prototypeId,
-                language
+                prototypeId
         );
-        switch (language.getLanguage())
-        {
-            case LanguageCode.CHINESE:
-                this.descriptionPackage = descriptionPackageCN;
-                break;
-            default:
-                this.descriptionPackage = descriptionPackageEN;
-                break;
-        }
+
 
     }
 
     @Override
-    public BaseConstruction getInstance(GridPosition position) {
+    public BaseConstruction getInstance(GridPosition position, DescriptionPackage descriptionPackage) {
         String id = prototypeId + "_" + IdleMushroomJavaFeatureForGwt.uuid();
         BaseIdleMushroomConstruction construction = new BaseIdleMushroomConstruction(prototypeId, id, position, descriptionPackage);
 

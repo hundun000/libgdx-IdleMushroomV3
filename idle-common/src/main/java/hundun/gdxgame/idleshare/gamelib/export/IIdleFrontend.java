@@ -1,6 +1,7 @@
 package hundun.gdxgame.idleshare.gamelib.export;
 
 import hundun.gdxgame.idleshare.gamelib.framework.model.construction.base.BaseConstruction;
+import hundun.gdxgame.idleshare.gamelib.framework.model.construction.base.DescriptionPackage;
 
 /**
  * {@link IdleGameplayExport}持有此interface。<br>
@@ -27,4 +28,14 @@ public interface IIdleFrontend {
      * 来自{@link IdleGameplayExport}的通知
      */
     void postConstructionCreate(BaseConstruction construction);
+
+    /**
+     * 获取prototypeId对应文案数据包
+     */
+    DescriptionPackage getConstructionDescriptionPackage(String prototypeId);
+
+    /**
+     * 获取prototypeId对应文案数据包
+     */
+    DescriptionPackage getAchievementDescriptionPackage(String prototypeId);
 }

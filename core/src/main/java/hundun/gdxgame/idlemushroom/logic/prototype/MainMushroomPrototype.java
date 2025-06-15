@@ -36,23 +36,14 @@ public class MainMushroomPrototype extends AbstractConstructionPrototype {
 
     public MainMushroomPrototype(Locale language) {
         super(
-                IdleMushroomConstructionPrototypeId.MAIN_MUSHROOM,
-                language
+                IdleMushroomConstructionPrototypeId.MAIN_MUSHROOM
         );
-        switch (language.getLanguage())
-        {
-            case LanguageCode.CHINESE:
-                this.descriptionPackage = descriptionPackageCN;
-                break;
-            default:
-                this.descriptionPackage = descriptionPackageEN;
-                break;
-        }
+
 
     }
 
     @Override
-    public BaseConstruction getInstance(GridPosition position) {
+    public BaseConstruction getInstance(GridPosition position, DescriptionPackage descriptionPackage) {
         String id = prototypeId + "_" + IdleMushroomJavaFeatureForGwt.uuid();
         BaseIdleMushroomConstruction construction = new BaseIdleMushroomConstruction(prototypeId, id, position, descriptionPackage);
 

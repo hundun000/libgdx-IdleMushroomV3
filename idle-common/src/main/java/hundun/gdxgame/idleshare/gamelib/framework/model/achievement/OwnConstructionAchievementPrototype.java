@@ -11,23 +11,18 @@ import java.util.Map.Entry;
 
 public class OwnConstructionAchievementPrototype extends AbstractAchievementPrototype {
     public Map<String, Entry<Integer, Integer>> requirementMap;
-    String descriptionReplaceConstructionPrototypeId;
+
 
     public OwnConstructionAchievementPrototype(
             String id,
-            String name,
-            String description,
-            String congratulationText,
-            String descriptionReplaceConstructionPrototypeId,
             Map<String, Entry<Integer, Integer>> requirementMap,
             List<ResourcePair> awardResourceMap,
             List<String> nextAchievementId
     )
 
     {
-        super(id, name, description, congratulationText, awardResourceMap, nextAchievementId);
+        super(id, awardResourceMap, nextAchievementId);
         this.requirementMap = requirementMap;
-        this.descriptionReplaceConstructionPrototypeId = descriptionReplaceConstructionPrototypeId;
     }
 
     @Override
@@ -56,13 +51,6 @@ public class OwnConstructionAchievementPrototype extends AbstractAchievementProt
     @Override
     public void lazyInitDescription(IdleGameplayContext gameplayContext) {
         super.lazyInitDescription(gameplayContext);
-
-        this.description = description.replace(
-                "{PrototypeName}",
-                gameplayContext.getConstructionFactory().getPrototype(descriptionReplaceConstructionPrototypeId)
-                        .getDescriptionPackage()
-                        .getName()
-                );
     }
 
     public static class Companion {
@@ -73,16 +61,13 @@ public class OwnConstructionAchievementPrototype extends AbstractAchievementProt
         public static void quickAddOwnConstructionAchievement(
                 Map<String, AbstractAchievementPrototype> map,
                 String id,
-                Map<String, List<String>> textMap,
                 Map<String, Entry<Integer, Integer>> requireds,
                 List<String> nextAchievementId,
                 ResourcePair... awardResourceMap
         )
         {
-            List<String> args = textMap.get(id);
             AbstractAchievementPrototype achievement =  new OwnConstructionAchievementPrototype(
                     id,
-                    args.get(0), args.get(1), args.get(2), args.get(3),
                     requireds,
                     JavaFeatureForGwt.listOf(awardResourceMap),
                     nextAchievementId

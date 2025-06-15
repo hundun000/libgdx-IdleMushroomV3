@@ -52,23 +52,13 @@ public class AutoSellerPrototype extends AbstractConstructionPrototype {
 
     public AutoSellerPrototype(Locale language) {
         super(
-                IdleMushroomConstructionPrototypeId.MUSHROOM_AUTO_SELLER,
-                language
+                IdleMushroomConstructionPrototypeId.MUSHROOM_AUTO_SELLER
         );
-        switch (language.getLanguage())
-        {
-            case LanguageCode.CHINESE:
-                this.descriptionPackage = AutoSellerPrototype.descriptionPackageCN;
-                break;
-            default:
-                this.descriptionPackage = AutoSellerPrototype.descriptionPackageEN;
-                break;
-        }
 
     }
 
     @Override
-    public BaseConstruction getInstance(GridPosition position) {
+    public BaseConstruction getInstance(GridPosition position, DescriptionPackage descriptionPackage) {
         String id = prototypeId + "_" + IdleMushroomJavaFeatureForGwt.uuid();
         BaseIdleMushroomConstruction construction = new BaseIdleMushroomConstruction(prototypeId, id, position, descriptionPackage);
 
