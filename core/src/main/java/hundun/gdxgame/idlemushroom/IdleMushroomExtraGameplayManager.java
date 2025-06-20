@@ -41,6 +41,8 @@ public class IdleMushroomExtraGameplayManager extends HundunIdleFrontend impleme
             IdleMushroomConstructionPrototypeId.MUSHROOM_AUTO_SELLER, 999,
             IdleMushroomConstructionPrototypeId.EPOCH_COUNTER, EPOCH_COUNTER_MAX_LEVEL
     );
+    IDescriptionPackageFactory descriptionPackageFactory;
+
     @Getter
     RootEpochConfig currentRootEpochConfig;
     @Getter
@@ -59,6 +61,7 @@ public class IdleMushroomExtraGameplayManager extends HundunIdleFrontend impleme
         super(idleMushroomGame);
         this.idleMushroomGame = idleMushroomGame;
         this.epochConfigMap = new HashMap<>();
+        this.descriptionPackageFactory = new DescriptionPackageFactory(idleMushroomGame);
         for (int i = 1; i < EPOCH_COUNTER_SPECIAL_LEVEL_1; i++) {
             epochConfigMap.put(
                     i, RootEpochConfig.builder()
@@ -228,85 +231,11 @@ public class IdleMushroomExtraGameplayManager extends HundunIdleFrontend impleme
         construction.updateModifiedValues();
     }
 
-    static final String I18N_COPY_KEY = ":COPY";
-    static final String I18N_VALUE_LIST_SPLIT = ";;";
-    private String bundleSafeGet(I18NBundle bundle, String key) {
-        if (!bundle.keys().contains(key)) {
-            idleMushroomGame.getFrontend().log(this.getClass().getSimpleName(), "bundle miss key = %s", key);
-            return "[miss bundle]";
-        }
-        return bundle.get(key);
-    }
-
     @Override
-    public DescriptionPackage getConstructionDescriptionPackage(String prototypeId) {
-
-        FileHandle fileHandle = Gdx.files.internal("i18n/ConstructionPrototype");
-        I18NBundle bundle = I18NBundle.createBundle(fileHandle, idleMushroomGame.getIdleGameplayExport().getLocale());
-        if (bundle != null) {
-            // 若存在 key = prototypeId + I18N_COPY_KEY，则其value作为模板
-            String usingClassKey = Optional.of(prototypeId + I18N_COPY_KEY)
-                .filter(it -> bundle.keys().contains(it))
-                .map(it -> bundle.get(it))
-                .orElse(prototypeId);
-            return DescriptionPackage.builder()
-                .name(bundleSafeGet(bundle, usingClassKey + ":name"))
-                .wikiText(bundleSafeGet(bundle, usingClassKey + ":wikiText"))
-                .upgradeButtonText(bundleSafeGet(bundle, usingClassKey + ":upgradeButtonText"))
-                .outputCostDescriptionStart(bundleSafeGet(bundle, usingClassKey + ":outputCostDescriptionStart"))
-                .outputGainDescriptionStart(bundleSafeGet(bundle, usingClassKey + ":outputGainDescriptionStart"))
-                .upgradeCostDescriptionStart(bundleSafeGet(bundle, usingClassKey + ":upgradeCostDescriptionStart"))
-                .upgradeMaxLevelDescription(bundleSafeGet(bundle, usingClassKey + ":upgradeMaxLevelDescription"))
-                .extraTexts(Arrays.asList(
-                    bundleSafeGet(bundle, usingClassKey + ":upgradeMaxLevelDescription").split(I18N_VALUE_LIST_SPLIT)
-                ))
-                .levelDescriptionProvider(LevelDescriptionPackage.builder()
-                    .levelPart(bundleSafeGet(bundle, usingClassKey + ":levelDescriptionProvider.levelPart"))
-                    .reachedMaxLevelPart(bundleSafeGet(bundle, usingClassKey + ":levelDescriptionProvider.reachedMaxLevelPart"))
-                    .activeLevelPart(bundleSafeGet(bundle, usingClassKey + ":levelDescriptionProvider.activeLevelPart"))
-                    .build())
-                .proficiencyDescriptionProvider(ProficiencyDescriptionPackage.builder()
-                    .formatPercentage(bundleSafeGet(bundle, usingClassKey + ":proficiencyDescriptionProvider.levelPart").equals(Boolean.TRUE.toString()))
-                    .proficiencyPart(bundleSafeGet(bundle, usingClassKey + ":proficiencyDescriptionProvider.proficiencyPart"))
-                    .reachedMaxProficiencyPart(bundleSafeGet(bundle, usingClassKey + ":proficiencyDescriptionProvider.reachedMaxProficiencyPart"))
-                    .build())
-                .build();
-        }
-
-
-        // TODO
-        return DescriptionPackage.builder()
-            .name("TODO.蘑菇地块")
-            .wikiText("TODO.介绍")
-            .upgradeButtonText("TODO.升级")
-            .outputCostDescriptionStart("TODO.消耗")
-            .outputGainDescriptionStart("TODO.产出")
-            .upgradeCostDescriptionStart("TODO.升级费用")
-            .upgradeMaxLevelDescription("(TODO.已达到最大等级)")
-            .extraTexts(JavaFeatureForGwt.listOf("TODO", "TODO", "TODO"))
-            .levelDescriptionProvider(LevelDescriptionPackage.builder()
-                .levelPart("TODO.等级{0}")
-                .reachedMaxLevelPart("(TODO.最大)")
-                .activeLevelPart("TODO.启用: {0}")
-                .build())
-            .proficiencyDescriptionProvider(ProficiencyDescriptionPackage.builder()
-                .proficiencyPart("TODO.效率: {0)")
-                .formatPercentage(true)
-                .proficiencyPart("TODO.Growth: {0}%")
-                .build())
-            .build();
+    public IDescriptionPackageFactory getDescriptionPackageFactory() {
+        return descriptionPackageFactory;
     }
 
-    @Override
-    public DescriptionPackage getAchievementDescriptionPackage(String prototypeId) {
-        // TODO
-        return DescriptionPackage.builder()
-            .name("TODO.NO.1")
-            .wikiText("TODO.拥有2个等级1的{PrototypeName}")
-            .upgradeButtonText("TODO.你完成了任务NO.1。")
-            .outputCostDescriptionStart(IdleMushroomConstructionPrototypeId.EPOCH_1_MUSHROOM_AUTO_PROVIDER)
-            .build();
-    }
 
     private void handleEpochConfigMaxLevel(BaseConstruction construction) {
         if (specialEpochConfigMaxLevel.containsKey(construction.getPrototypeId())) {

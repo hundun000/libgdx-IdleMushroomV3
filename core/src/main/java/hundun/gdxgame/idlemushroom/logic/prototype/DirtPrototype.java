@@ -1,6 +1,5 @@
 package hundun.gdxgame.idlemushroom.logic.prototype;
 
-import hundun.gdxgame.idlemushroom.logic.IdleMushroomGameDictionary.LanguageCode;
 import hundun.gdxgame.libv3.gamelib.base.util.JavaFeatureForGwt;
 import hundun.gdxgame.idlemushroom.logic.construction.BaseIdleMushroomConstruction;
 import hundun.gdxgame.idlemushroom.logic.id.IdleMushroomConstructionPrototypeId;
@@ -11,38 +10,14 @@ import hundun.gdxgame.idleshare.gamelib.framework.data.ChildGameConfig.Construct
 import hundun.gdxgame.idleshare.gamelib.framework.model.construction.AbstractConstructionPrototype;
 import hundun.gdxgame.idleshare.gamelib.framework.model.construction.base.BaseConstruction;
 import hundun.gdxgame.idleshare.gamelib.framework.model.construction.base.DescriptionPackage;
-import hundun.gdxgame.idleshare.gamelib.framework.model.construction.base.DescriptionPackageFactory;
+
 import hundun.gdxgame.idleshare.gamelib.framework.model.construction.starter.ConstProficiencyComponent;
 import hundun.gdxgame.idleshare.gamelib.framework.model.construction.starter.SimpleAutoOutputComponent;
 import hundun.gdxgame.idleshare.gamelib.framework.model.grid.GridPosition;
 
 
-import java.util.Locale;
-
-
 public class DirtPrototype extends AbstractConstructionPrototype {
-    public static DescriptionPackage descriptionPackageEN = DescriptionPackage.builder()
-            .name("Empty Tile")
-            .wikiText("Empty Tile" + "：\n" +
-                    "•Can be transformed into other tile.")
-            .transformButtonText("Transform")
-            .transformCostDescriptionStart("Cost: ")
-            .extraTexts(JavaFeatureForGwt.listOf("Candidate: "))
-            .levelDescriptionProvider(DescriptionPackageFactory.EN_LEVEL_IMP.build())
-            .proficiencyDescriptionProvider(DescriptionPackageFactory.EN_PROFICIENCY_IMP.build())
-            .build();
 
-
-    public static DescriptionPackage descriptionPackageCN = DescriptionPackage.builder()
-            .name("空地块")
-            .wikiText("空地块" + "：\n" +
-                    "•可转变为其他地块。")
-            .transformButtonText("转变")
-            .transformCostDescriptionStart("费用: ")
-            .extraTexts(JavaFeatureForGwt.listOf("可转变："))
-            .levelDescriptionProvider(DescriptionPackageFactory.CN_LEVEL_IMP.build())
-            .proficiencyDescriptionProvider(DescriptionPackageFactory.CN_PROFICIENCY_IMP.build())
-            .build();
 
     public DirtPrototype(String prototypeId) {
         super(

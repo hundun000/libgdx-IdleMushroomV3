@@ -25,7 +25,7 @@ public class GwtLauncher extends GwtApplication {
         @Override
         public ApplicationListener createApplicationListener () {
             return new IdleMushroomGame(
-                new GwtPreferencesSaveTool("IdleMushroomGame-html-save"),
+                new GwtPreferencesSaveTool("IdleMushroomV3-html-save"),
                 new IProxyManagerCallback() {
 
                 }

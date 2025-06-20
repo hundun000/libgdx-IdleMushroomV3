@@ -1,6 +1,5 @@
 package hundun.gdxgame.idlemushroom.logic.prototype;
 
-import hundun.gdxgame.idlemushroom.logic.IdleMushroomGameDictionary.LanguageCode;
 import hundun.gdxgame.libv3.gamelib.base.util.JavaFeatureForGwt;
 import hundun.gdxgame.idlemushroom.logic.construction.BaseIdleMushroomConstruction;
 import hundun.gdxgame.idlemushroom.logic.construction.DemoSimpleAutoOutputComponent;
@@ -12,57 +11,14 @@ import hundun.gdxgame.idleshare.gamelib.framework.model.construction.AbstractCon
 import hundun.gdxgame.idleshare.gamelib.framework.model.construction.base.BaseConstruction;
 import hundun.gdxgame.idleshare.gamelib.framework.model.construction.base.DescriptionPackage;
 import hundun.gdxgame.idleshare.gamelib.framework.model.construction.base.DescriptionPackage.ProficiencyDescriptionPackage;
-import hundun.gdxgame.idleshare.gamelib.framework.model.construction.base.DescriptionPackageFactory;
 import hundun.gdxgame.idleshare.gamelib.framework.model.construction.starter.BaseAutoProficiencyComponent;
 import hundun.gdxgame.idleshare.gamelib.framework.model.grid.GridPosition;
 
 
 import java.util.HashMap;
-import java.util.Locale;
 
 
 public class AutoProviderPrototype extends AbstractConstructionPrototype {
-
-    public static ProficiencyDescriptionPackage CN_PROFICIENCY_IMP = DescriptionPackageFactory.CN_PROFICIENCY_IMP
-            .formatPercentage(true)
-            .proficiencyPart("成长度: {0}%")
-            .build();
-
-    public static ProficiencyDescriptionPackage EN_PROFICIENCY_IMP = DescriptionPackageFactory.EN_PROFICIENCY_IMP
-            .formatPercentage(true)
-            .proficiencyPart("Growth: {0}%")
-            .build();
-
-    public static DescriptionPackage descriptionPackageEN = DescriptionPackage.builder()
-            .name("Mushroom Tile")
-            .wikiText("Mushroom Tile" + "：\n" +
-                    "•Timely production of mushroom resources.\n" +
-                    "•When the growth reaches its full length, it can be upgraded, and the growth length will be reset after the upgrade.\n" +
-                    "•The growth speed is related to the surrounding tiles; trees benefit it, and the other mushrooms reduce it.")
-            .upgradeButtonText("Upgrade")
-            .outputCostDescriptionStart("Consume")
-            .outputGainDescriptionStart("Produce")
-            .upgradeCostDescriptionStart("Upgrade cost")
-            .upgradeMaxLevelDescription("(max level)")
-            .levelDescriptionProvider(DescriptionPackageFactory.EN_LEVEL_IMP.build())
-            .proficiencyDescriptionProvider(AutoProviderPrototype.EN_PROFICIENCY_IMP)
-            .build();
-
-
-    public static DescriptionPackage descriptionPackageCN = DescriptionPackage.builder()
-            .name("蘑菇地块")
-            .wikiText("Mushroom Tile" + "：\n" +
-                    "•定时生产蘑菇资源。\n" +
-                    "•成长度满时可以升级，升级后成长度重置。\n" +
-                    "•成长速度与周围地块有关，树木有利于成长，存在其他蘑菇地块不利于成长。")
-            .upgradeButtonText("升级")
-            .outputCostDescriptionStart("消耗")
-            .outputGainDescriptionStart("产出")
-            .upgradeCostDescriptionStart("升级费用")
-            .upgradeMaxLevelDescription("(已达到最大等级)")
-            .levelDescriptionProvider(DescriptionPackageFactory.CN_LEVEL_IMP.build())
-            .proficiencyDescriptionProvider(AutoProviderPrototype.CN_PROFICIENCY_IMP)
-            .build();
 
 
 

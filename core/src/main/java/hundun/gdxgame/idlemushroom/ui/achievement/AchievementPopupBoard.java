@@ -43,7 +43,7 @@ public class AchievementPopupBoard extends Table {
     private void rebuildUi(@Null AbstractAchievementPrototype prototype) {
         this.clearChildren();
         DescriptionPackage descriptionPackage = Optional.ofNullable(prototype)
-            .map(it -> parent.getGame().getIdleMushroomExtraGameplayManager().getAchievementDescriptionPackage(it.getId()))
+            .map(it -> parent.getGame().getIdleMushroomExtraGameplayManager().getDescriptionPackageFactory().getAchievementDescriptionPackage(it.getId()))
             .orElse(null);
         Label label = new Label(descriptionPackage != null ? descriptionPackage.getWikiText() : "", parent.getGame().getMainSkin());
         this.add(label).center().row();

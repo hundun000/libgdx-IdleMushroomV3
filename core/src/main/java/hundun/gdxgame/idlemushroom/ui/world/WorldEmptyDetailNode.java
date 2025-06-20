@@ -143,7 +143,7 @@ public class WorldEmptyDetailNode extends BaseCellDetailNodeVM {
             final IdleMushroomPlayScreenLayoutConst playScreenLayoutConst = parent.getLayoutConst();
             this.parent = parent;
             this.constructionBuyCandidateConfig = constructionBuyCandidateConfig;
-            this.descriptionPackage = parent.getGame().getIdleMushroomExtraGameplayManager().getConstructionDescriptionPackage(constructionBuyCandidateConfig.getPrototypeId());
+            this.descriptionPackage = parent.getGame().getIdleMushroomExtraGameplayManager().getDescriptionPackageFactory().getConstructionDescriptionPackage(constructionBuyCandidateConfig.getPrototypeId());
             this.model = model;
 
             int CHILD_WIDTH = playScreenLayoutConst.CONSTRUCION_CHILD_WIDTH;

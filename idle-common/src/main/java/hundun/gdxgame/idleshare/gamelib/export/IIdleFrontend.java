@@ -29,13 +29,19 @@ public interface IIdleFrontend {
      */
     void postConstructionCreate(BaseConstruction construction);
 
-    /**
-     * 获取prototypeId对应文案数据包
-     */
-    DescriptionPackage getConstructionDescriptionPackage(String prototypeId);
+    IDescriptionPackageFactory getDescriptionPackageFactory();
 
-    /**
-     * 获取prototypeId对应文案数据包
-     */
-    DescriptionPackage getAchievementDescriptionPackage(String prototypeId);
+    public interface IDescriptionPackageFactory {
+        /**
+         * 获取prototypeId对应文案数据包
+         */
+        DescriptionPackage getConstructionDescriptionPackage(String prototypeId);
+
+        /**
+         * 获取prototypeId对应文案数据包
+         */
+        DescriptionPackage getAchievementDescriptionPackage(String prototypeId);
+    }
+
+
 }

@@ -43,7 +43,7 @@ public class BaseConstructionFactory {
     public BaseConstruction getInstanceOfPrototype(String prototypeId, GridPosition position)
     {
         AbstractConstructionPrototype prototype = providerMap.get(prototypeId);
-        DescriptionPackage descriptionPackage = idleFrontend.getConstructionDescriptionPackage(prototypeId);
+        DescriptionPackage descriptionPackage = idleFrontend.getDescriptionPackageFactory().getConstructionDescriptionPackage(prototypeId);
         BaseConstruction construction = prototype.getInstance(position, descriptionPackage);
         construction.lazyInitDescription(gameContext, locale);
         gameContext.getEventManager().registerListener(construction);

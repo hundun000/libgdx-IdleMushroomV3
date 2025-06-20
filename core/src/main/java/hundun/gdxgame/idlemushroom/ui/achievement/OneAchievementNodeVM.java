@@ -76,7 +76,7 @@ public class OneAchievementNodeVM extends Table {
 
         if (achievementAndStatus != null)
         {
-            DescriptionPackage descriptionPackage = parent.getGame().getIdleMushroomExtraGameplayManager().getAchievementDescriptionPackage(achievementAndStatus.getAchievement().getId());
+            DescriptionPackage descriptionPackage = parent.getGame().getIdleMushroomExtraGameplayManager().getDescriptionPackageFactory().getAchievementDescriptionPackage(achievementAndStatus.getAchievement().getId());
             nameValueLabel.setText(descriptionPackage.getName());
             descriptionLabel.setText(descriptionPackage.getWikiText());
             countValueLabel.setText(

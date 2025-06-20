@@ -14,7 +14,7 @@ public class Lwjgl3Launcher {
     private static Lwjgl3Application createApplication() {
         return new Lwjgl3Application(
             new IdleMushroomGame(
-                new PreferencesSaveTool("IdleMushroom-desktop-save.xml"),
+                new PreferencesSaveTool("IdleMushroomV3-desktop-save.xml"),
                 new DesktopProxyManagerCallback()
             )
             , getDefaultConfiguration());
