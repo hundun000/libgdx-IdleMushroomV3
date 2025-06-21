@@ -16,6 +16,9 @@ import java.util.List;
 public abstract class AbstractAchievementPrototype {
     protected IdleGameplayContext gameplayContext;
     protected String id;
+    protected String name;
+    protected String description;
+    protected String congratulationText;
     protected List<ResourcePair> awardResourceMap;
     protected List<String> nextAchievementIds;
 
@@ -23,10 +26,16 @@ public abstract class AbstractAchievementPrototype {
 
     public AbstractAchievementPrototype(
             String id,
+            String name,
+            String description,
+            String congratulationText,
             List<ResourcePair> awardResourceMap,
             List<String> nextAchievementIds
     ) {
         this.id = id;
+        this.name = name;
+        this.description = description;
+        this.congratulationText = congratulationText;
         this.awardResourceMap = awardResourceMap;
         this.nextAchievementIds = nextAchievementIds;
     }

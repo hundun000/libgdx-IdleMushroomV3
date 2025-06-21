@@ -11,5 +11,5 @@ import java.util.Map;
  * Created on 2023/03/01
  */
 public interface IBuiltinConstructionsLoader {
-    Map<String, AbstractConstructionPrototype> getProviderMap(Locale language);
+    Map<String, AbstractConstructionPrototype> getProviderMap();
 }

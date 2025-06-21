@@ -20,7 +20,7 @@ import java.util.Locale;
 
 public class EpochCounterPrototype extends AbstractConstructionPrototype {
 
-    public EpochCounterPrototype(Locale language) {
+    public EpochCounterPrototype() {
         super(
                 IdleMushroomConstructionPrototypeId.EPOCH_COUNTER
         );

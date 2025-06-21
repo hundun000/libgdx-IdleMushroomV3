@@ -11,18 +11,20 @@ import java.util.Map.Entry;
 
 public class OwnConstructionAchievementPrototype extends AbstractAchievementPrototype {
     public Map<String, Entry<Integer, Integer>> requirementMap;
-
+    String descriptionReplaceConstructionPrototypeId;
 
     public OwnConstructionAchievementPrototype(
             String id,
+            AchievementDescriptionPackage descriptionPackage,
             Map<String, Entry<Integer, Integer>> requirementMap,
             List<ResourcePair> awardResourceMap,
             List<String> nextAchievementId
     )
 
     {
-        super(id, awardResourceMap, nextAchievementId);
+        super(id, descriptionPackage.getName(), descriptionPackage.getWikiText(), descriptionPackage.getCongratulationText(), awardResourceMap, nextAchievementId);
         this.requirementMap = requirementMap;
+        this.descriptionReplaceConstructionPrototypeId = descriptionPackage.getDescriptionReplaceConstructionPrototypeId();
     }
 
     @Override
@@ -51,6 +53,20 @@ public class OwnConstructionAchievementPrototype extends AbstractAchievementProt
     @Override
     public void lazyInitDescription(IdleGameplayContext gameplayContext) {
         super.lazyInitDescription(gameplayContext);
+
+        this.description = description.replace(
+                "{PrototypeName}",
+                gameplayContext.getIdleFrontend().getDescriptionPackageFactory()
+                    .getConstructionDescriptionPackage(descriptionReplaceConstructionPrototypeId)
+                    .getName()
+                );
+        var achievementExtraArgMap = gameplayContext.getIdleFrontend().getDescriptionPackageFactory().getAchievementExtraArgMap();
+        for (Entry<String, Integer> stringIntegerEntry : achievementExtraArgMap.entrySet()) {
+            this.description = description.replace(
+                "{" + stringIntegerEntry.getKey() + "}",
+                String.valueOf(stringIntegerEntry.getValue())
+            );
+        }
     }
 
     public static class Companion {
@@ -61,16 +77,18 @@ public class OwnConstructionAchievementPrototype extends AbstractAchievementProt
         public static void quickAddOwnConstructionAchievement(
                 Map<String, AbstractAchievementPrototype> map,
                 String id,
+                AchievementDescriptionPackage descriptionPackage,
                 Map<String, Entry<Integer, Integer>> requireds,
                 List<String> nextAchievementId,
                 ResourcePair... awardResourceMap
         )
         {
             AbstractAchievementPrototype achievement =  new OwnConstructionAchievementPrototype(
-                    id,
-                    requireds,
-                    JavaFeatureForGwt.listOf(awardResourceMap),
-                    nextAchievementId
+                id,
+                descriptionPackage,
+                requireds,
+                JavaFeatureForGwt.listOf(awardResourceMap),
+                nextAchievementId
             );
 
 

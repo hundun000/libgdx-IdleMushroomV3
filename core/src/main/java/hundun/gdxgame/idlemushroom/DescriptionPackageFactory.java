@@ -5,7 +5,9 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.I18NBundle;
 import com.badlogic.gdx.utils.Json;
 import hundun.gdxgame.idlemushroom.logic.id.IdleMushroomConstructionPrototypeId;
+import hundun.gdxgame.idlemushroom.logic.loader.IdleMushroomAchievementLoader;
 import hundun.gdxgame.idleshare.gamelib.export.IIdleFrontend.IDescriptionPackageFactory;
+import hundun.gdxgame.idleshare.gamelib.framework.model.achievement.AchievementDescriptionPackage;
 import hundun.gdxgame.idleshare.gamelib.framework.model.construction.base.DescriptionPackage;
 import hundun.gdxgame.idleshare.gamelib.framework.model.construction.base.DescriptionPackage.LevelDescriptionPackage;
 import hundun.gdxgame.idleshare.gamelib.framework.model.construction.base.DescriptionPackage.ProficiencyDescriptionPackage;
@@ -37,11 +39,21 @@ public class DescriptionPackageFactory implements IDescriptionPackageFactory {
             .proficiencyPart("TODO.Growth: {0}%")
             .build())
         .build();
+
+    static AchievementDescriptionPackage DEFAULT_AchievementDescriptionPackage = AchievementDescriptionPackage.builder()
+        .name("TODO.NO.1")
+            .wikiText("TODO.拥有2个等级1的{PrototypeName}")
+            .congratulationText("TODO.你完成了任务NO.1。")
+            .descriptionReplaceConstructionPrototypeId(IdleMushroomConstructionPrototypeId.EPOCH_1_MUSHROOM_AUTO_PROVIDER)
+            .build();
+
+
     IdleMushroomGame idleMushroomGame;
 
 
 
     Map<String, DescriptionPackage> descriptionPackageCache = new HashMap<>();
+    Map<String, AchievementDescriptionPackage> achievementDescriptionPackageCache = new HashMap<>();
     public DescriptionPackageFactory(IdleMushroomGame idleMushroomGame) {
         this.idleMushroomGame = idleMushroomGame;
     }
@@ -60,6 +72,12 @@ public class DescriptionPackageFactory implements IDescriptionPackageFactory {
         String text = json.toJson(descriptionPackage);
         return json.fromJson(DescriptionPackage.class, text);
     }
+
+    public AchievementDescriptionPackage clone(AchievementDescriptionPackage descriptionPackage) {
+        String text = json.toJson(descriptionPackage);
+        return json.fromJson(AchievementDescriptionPackage.class, text);
+    }
+
     @Override
     public DescriptionPackage getConstructionDescriptionPackage(String prototypeId) {
         if (descriptionPackageCache.containsKey(prototypeId)) {
@@ -69,15 +87,17 @@ public class DescriptionPackageFactory implements IDescriptionPackageFactory {
         FileHandle fileHandle = Gdx.files.internal("i18n/ConstructionPrototype");
         I18NBundle bundle = I18NBundle.createBundle(fileHandle, idleMushroomGame.getIdleGameplayExport().getLocale());
         if (bundle != null) {
-            // 若存在 key = prototypeId + I18N_COPY_KEY，则其value作为模板
+            // 若存在COPY标记的key，则其value作为模板
             String usingClassKey = Optional.of(prototypeId + I18N_COPY_KEY)
                 .filter(it -> bundle.keys().contains(it))
                 .map(it -> bundle.get(it))
                 .orElse(prototypeId);
+            // 若存在COPY标记的key，则其value作为模板
             String usingLevelDescriptionPackageClassKey = Optional.of(usingClassKey + ".levelDescriptionProvider" + I18N_COPY_KEY)
                 .filter(it -> bundle.keys().contains(it))
                 .map(it -> bundle.get(it))
                 .orElse(usingClassKey + ".levelDescriptionProvider");
+            // 若存在COPY标记的key，则其value作为模板
             String usingProficiencyDescriptionPackageClassKey = Optional.of(usingClassKey + ".proficiencyDescriptionProvider" + I18N_COPY_KEY)
                 .filter(it -> bundle.keys().contains(it))
                 .map(it -> bundle.get(it))
@@ -116,13 +136,33 @@ public class DescriptionPackageFactory implements IDescriptionPackageFactory {
     }
 
     @Override
-    public DescriptionPackage getAchievementDescriptionPackage(String prototypeId) {
-        // TODO
-        return DescriptionPackage.builder()
-            .name("TODO.NO.1")
-            .wikiText("TODO.拥有2个等级1的{PrototypeName}")
-            .upgradeButtonText("TODO.你完成了任务NO.1。")
-            .outputCostDescriptionStart(IdleMushroomConstructionPrototypeId.EPOCH_1_MUSHROOM_AUTO_PROVIDER)
-            .build();
+    public AchievementDescriptionPackage getAchievementDescriptionPackage(String prototypeId) {
+        if (achievementDescriptionPackageCache.containsKey(prototypeId)) {
+            return clone(achievementDescriptionPackageCache.get(prototypeId));
+        }
+        FileHandle fileHandle = Gdx.files.internal("i18n/AchievementDescriptionPackage");
+        I18NBundle bundle = I18NBundle.createBundle(fileHandle, idleMushroomGame.getIdleGameplayExport().getLocale());
+        if (bundle != null) {
+            // 若存在COPY标记的key，则其value作为模板
+            String usingClassKey = Optional.of(prototypeId + I18N_COPY_KEY)
+                .filter(it -> bundle.keys().contains(it))
+                .map(it -> bundle.get(it))
+                .orElse(prototypeId);
+
+            AchievementDescriptionPackage result = AchievementDescriptionPackage.builder()
+                .name(bundleSafeGet(bundle, usingClassKey + ".name"))
+                .wikiText(bundleSafeGet(bundle, usingClassKey + ".wikiText"))
+                .congratulationText(bundleSafeGet(bundle, usingClassKey + ".congratulationText"))
+                .descriptionReplaceConstructionPrototypeId(bundleSafeGet(bundle, usingClassKey + ".descriptionReplaceConstructionPrototypeId"))
+                .build();
+            achievementDescriptionPackageCache.put(prototypeId, result);
+            return clone(result);
+        }
+        return DEFAULT_AchievementDescriptionPackage;
+    }
+
+    @Override
+    public Map<String, Integer> getAchievementExtraArgMap() {
+        return IdleMushroomAchievementLoader.achievementExtraArgMap;
     }
 }

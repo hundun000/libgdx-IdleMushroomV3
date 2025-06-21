@@ -21,7 +21,7 @@ import java.util.Locale;
 
 public class MainMushroomPrototype extends AbstractConstructionPrototype {
 
-    public MainMushroomPrototype(Locale language) {
+    public MainMushroomPrototype() {
         super(
                 IdleMushroomConstructionPrototypeId.MAIN_MUSHROOM
         );

@@ -1,7 +1,10 @@
 package hundun.gdxgame.idleshare.gamelib.export;
 
+import hundun.gdxgame.idleshare.gamelib.framework.model.achievement.AchievementDescriptionPackage;
 import hundun.gdxgame.idleshare.gamelib.framework.model.construction.base.BaseConstruction;
 import hundun.gdxgame.idleshare.gamelib.framework.model.construction.base.DescriptionPackage;
+
+import java.util.Map;
 
 /**
  * {@link IdleGameplayExport}持有此interface。<br>
@@ -40,7 +43,9 @@ public interface IIdleFrontend {
         /**
          * 获取prototypeId对应文案数据包
          */
-        DescriptionPackage getAchievementDescriptionPackage(String prototypeId);
+        AchievementDescriptionPackage getAchievementDescriptionPackage(String prototypeId);
+
+        Map<String, Integer> getAchievementExtraArgMap();
     }
 
 

@@ -21,7 +21,8 @@ public class AchievementManager implements IBuffChangeListener, IResourceChangeL
     IdleGameplayContext gameContext;
 
     Map<String, AchievementAndStatus> models = new HashMap<>();
-
+    @Getter
+    Map<String, AbstractAchievementPrototype> achievementProviderMap = new HashMap<>();
     @Override
     public void onBuffChange(Map<String, Integer> changeMap) {
         checkAllAchievementStateChange();
@@ -68,6 +69,9 @@ public class AchievementManager implements IBuffChangeListener, IResourceChangeL
         gameContext.getEventManager().registerListener(this);
     }
 
+    /**
+     * 展示首个待办任务所需的信息
+     */
     public AchievementInfoPackage getAchievementInfoPackage()
     {
         List<AchievementAndStatus> allAchievementList = models.values().stream()
@@ -146,6 +150,7 @@ public class AchievementManager implements IBuffChangeListener, IResourceChangeL
             Map<String, AbstractAchievementPrototype> achievementProviderMap,
             Map<String, AchievementSaveData> statusDataMap
     ) {
+        this.achievementProviderMap = achievementProviderMap;
         achievementProviderMap.values().forEach(it -> {
             AchievementSaveData statusData;
             if (statusDataMap.containsKey(it.getId())) {

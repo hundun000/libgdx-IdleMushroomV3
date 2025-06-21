@@ -14,7 +14,7 @@ import java.util.*;
 public class IdleMushroomConstructionsLoader implements IBuiltinConstructionsLoader {
 
     @Override
-    public Map<String, AbstractConstructionPrototype> getProviderMap(Locale language) {
+    public Map<String, AbstractConstructionPrototype> getProviderMap() {
         Map<String, AbstractConstructionPrototype> result = new HashMap<>();
         result.put(IdleMushroomConstructionPrototypeId.EPOCH_1_EMPTY_CELL, new DirtPrototype(
                 IdleMushroomConstructionPrototypeId.EPOCH_1_EMPTY_CELL
@@ -43,9 +43,9 @@ public class IdleMushroomConstructionsLoader implements IBuiltinConstructionsLoa
         result.put(IdleMushroomConstructionPrototypeId.EPOCH_3_MUSHROOM_AUTO_PROVIDER, new AutoProviderPrototype(
                 IdleMushroomConstructionPrototypeId.EPOCH_3_MUSHROOM_AUTO_PROVIDER
         ));
-        result.put(IdleMushroomConstructionPrototypeId.MUSHROOM_AUTO_SELLER, new AutoSellerPrototype(language));
-        result.put(IdleMushroomConstructionPrototypeId.MAIN_MUSHROOM, new MainMushroomPrototype(language));
-        result.put(IdleMushroomConstructionPrototypeId.EPOCH_COUNTER, new EpochCounterPrototype(language));
+        result.put(IdleMushroomConstructionPrototypeId.MUSHROOM_AUTO_SELLER, new AutoSellerPrototype());
+        result.put(IdleMushroomConstructionPrototypeId.MAIN_MUSHROOM, new MainMushroomPrototype());
+        result.put(IdleMushroomConstructionPrototypeId.EPOCH_COUNTER, new EpochCounterPrototype());
         return result;
     }
 

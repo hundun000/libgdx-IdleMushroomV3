@@ -1,13 +1,8 @@
 package hundun.gdxgame.idlemushroom;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.utils.I18NBundle;
 import com.badlogic.gdx.utils.Null;
+import hundun.gdxgame.idlemushroom.logic.loader.IdleMushroomAchievementLoader;
 import hundun.gdxgame.idleshare.gamelib.export.IdleGameplayExport;
-import hundun.gdxgame.idleshare.gamelib.framework.model.construction.base.DescriptionPackage;
-import hundun.gdxgame.idleshare.gamelib.framework.model.construction.base.DescriptionPackage.LevelDescriptionPackage;
-import hundun.gdxgame.idleshare.gamelib.framework.model.construction.base.DescriptionPackage.ProficiencyDescriptionPackage;
 import hundun.gdxgame.libv3.gamelib.base.util.JavaFeatureForGwt;
 import hundun.gdxgame.libv3.gamelib.starter.listerner.IGameStartListener;
 import hundun.gdxgame.idlemushroom.IdleMushroomGame.BuffEpochConfig;
@@ -19,10 +14,8 @@ import hundun.gdxgame.idleshare.core.framework.HundunIdleFrontend;
 import hundun.gdxgame.idleshare.gamelib.framework.model.construction.base.BaseConstruction;
 import lombok.Getter;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -33,15 +26,12 @@ public class IdleMushroomExtraGameplayManager extends HundunIdleFrontend impleme
     IdleMushroomGame idleMushroomGame;
     private final Map<Integer, RootEpochConfig> epochConfigMap;
     public static final int EPOCH_COUNTER_MAX_LEVEL = 20;
-    public static final int EPOCH_COUNTER_SPECIAL_LEVEL_0 = 2;
-    public static final int EPOCH_COUNTER_SPECIAL_LEVEL_1 = 4;
-    public static final int EPOCH_COUNTER_SPECIAL_LEVEL_2 = 8;
     private final Map<String, Integer> specialEpochConfigMaxLevel = JavaFeatureForGwt.mapOf(
             IdleMushroomConstructionPrototypeId.MAIN_MUSHROOM, Integer.MAX_VALUE,
             IdleMushroomConstructionPrototypeId.MUSHROOM_AUTO_SELLER, 999,
             IdleMushroomConstructionPrototypeId.EPOCH_COUNTER, EPOCH_COUNTER_MAX_LEVEL
     );
-    IDescriptionPackageFactory descriptionPackageFactory;
+    DescriptionPackageFactory descriptionPackageFactory;
 
     @Getter
     RootEpochConfig currentRootEpochConfig;
@@ -62,6 +52,9 @@ public class IdleMushroomExtraGameplayManager extends HundunIdleFrontend impleme
         this.idleMushroomGame = idleMushroomGame;
         this.epochConfigMap = new HashMap<>();
         this.descriptionPackageFactory = new DescriptionPackageFactory(idleMushroomGame);
+        int EPOCH_COUNTER_SPECIAL_LEVEL_0 = IdleMushroomAchievementLoader.achievementExtraArgMap.get(IdleMushroomAchievementLoader.EXTRA_ARG_0);
+        int EPOCH_COUNTER_SPECIAL_LEVEL_1 = IdleMushroomAchievementLoader.achievementExtraArgMap.get(IdleMushroomAchievementLoader.EXTRA_ARG_1);
+        int EPOCH_COUNTER_SPECIAL_LEVEL_2 = IdleMushroomAchievementLoader.achievementExtraArgMap.get(IdleMushroomAchievementLoader.EXTRA_ARG_2);
         for (int i = 1; i < EPOCH_COUNTER_SPECIAL_LEVEL_1; i++) {
             epochConfigMap.put(
                     i, RootEpochConfig.builder()

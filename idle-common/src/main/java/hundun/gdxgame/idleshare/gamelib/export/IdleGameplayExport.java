@@ -30,6 +30,7 @@ public class IdleGameplayExport implements ILogicFrameListener,
     @Getter
     private final IdleGameplayContext gameplayContext;
     private final IBuiltinConstructionsLoader builtinConstructionsLoader;
+    @Getter
     private final IAchievementPrototypeLoader builtinAchievementsLoader;
     private final ChildGameConfig childGameConfig;
     private final IBuffPrototypeLoader buffPrototypeLoader;
@@ -73,7 +74,7 @@ public class IdleGameplayExport implements ILogicFrameListener,
         gameplayContext.getStorageManager().setUnlockedResourceTypes(gameplaySaveData.getUnlockedResourceTypes());
         gameplayContext.getStorageManager().setOwnResources(gameplaySaveData.getOwnResources());
         gameplayContext.getAchievementManager().subApplyGameplaySaveData(
-                builtinAchievementsLoader.getProviderMap(locale),
+                builtinAchievementsLoader.getProviderMap(gameplayContext.getIdleFrontend().getDescriptionPackageFactory()),
                 gameplaySaveData.getAchievementSaveDataMap()
         );
         gameplayContext.getBuffManager().subApplyGameplaySaveData(
@@ -105,8 +106,8 @@ public class IdleGameplayExport implements ILogicFrameListener,
         gameplayContext.allLazyInit(
             locale,
             childGameConfig,
-            builtinConstructionsLoader.getProviderMap(locale),
-            builtinAchievementsLoader.getProviderMap(locale)
+            builtinConstructionsLoader.getProviderMap(),
+            builtinAchievementsLoader.getProviderMap(gameplayContext.getIdleFrontend().getDescriptionPackageFactory())
             );
         gameplayContext.getFrontend().log(this.getClass().getSimpleName(), "applySystemSetting done");
     }

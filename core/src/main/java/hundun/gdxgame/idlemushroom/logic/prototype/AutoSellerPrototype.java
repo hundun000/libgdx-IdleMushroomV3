@@ -20,7 +20,7 @@ import java.util.Locale;
 
 public class AutoSellerPrototype extends AbstractConstructionPrototype {
 
-    public AutoSellerPrototype(Locale language) {
+    public AutoSellerPrototype() {
         super(
                 IdleMushroomConstructionPrototypeId.MUSHROOM_AUTO_SELLER
         );
