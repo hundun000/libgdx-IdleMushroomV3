@@ -12,8 +12,8 @@ import hundun.gdxgame.libv3.gamelib.starter.listerner.IGameAreaChangeListener;
 import hundun.gdxgame.idlemushroom.IdleMushroomGame;
 import hundun.gdxgame.idlemushroom.logic.RootSaveData;
 import hundun.gdxgame.idlemushroom.ui.screen.IdleMushroomScreenContext.IdleMushroomPlayScreenLayoutConst;
-import hundun.gdxgame.idlemushroom.ui.shared.wiki.SharedWikiPopupInfoBoard;
-import hundun.gdxgame.idleshare.gamelib.framework.callback.ISecondaryInfoBoardCallback;
+import hundun.gdxgame.idlemushroom.ui.shared.wiki.SharedWikiPopupBoard;
+import hundun.gdxgame.idleshare.gamelib.framework.callback.IPopupBoardCallback;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -21,8 +21,41 @@ import java.util.HashMap;
 import java.util.List;
 
 public abstract class BaseIdleMushroomScreen extends BaseHundunScreen<IdleMushroomGame, RootSaveData>
-        implements ISecondaryInfoBoardCallback<Object>
 {
+    public class WikiPopupBoardCallback implements IPopupBoardCallback<Object> {
+        @Override
+        public void showAndUpdatePopupBoard(Object model) {
+            popupRootTable.clear();
+            var wikiPopupBoard = new SharedWikiPopupBoard(BaseIdleMushroomScreen.this.getGame());
+            popupRootTable.add(wikiPopupBoard).center().expand();
+            wikiPopupBoard.update(model);
+        }
+        @Override
+        public void hideAndCleanPopupBoard() {
+            popupRootTable.clear();
+        }
+    }
+
+    public class SystemSettingPopupBoardCallback implements IPopupBoardCallback<Void> {
+        @Override
+        public void showAndUpdatePopupBoard(Void model) {
+            popupRootTable.clear();
+            var systemSettingPopupBoard = new SystemSettingPopupBoard(BaseIdleMushroomScreen.this, this);
+            popupRootTable.add(systemSettingPopupBoard).center().expand();
+            Gdx.input.setInputProcessor(popupUiStage);
+        }
+        @Override
+        public void hideAndCleanPopupBoard() {
+            popupRootTable.clear();
+            Gdx.input.setInputProcessor(provideDefaultInputProcessor());
+        }
+    }
+
+    @Getter
+    WikiPopupBoardCallback wikiPopupBoardCallback = new WikiPopupBoardCallback();
+    @Getter
+    SystemSettingPopupBoardCallback systemSettingPopupBoardCallback = new SystemSettingPopupBoardCallback();
+
     @Getter
     protected final IdleMushroomPlayScreenLayoutConst layoutConst;
 
@@ -33,10 +66,10 @@ public abstract class BaseIdleMushroomScreen extends BaseHundunScreen<IdleMushro
     protected final String screenId;
     protected boolean enableLogicFrameOnShow = true;
     protected StorageInfoBoard storageInfoTable;
-    protected SharedWikiPopupInfoBoard secondaryInfoBoard;
     protected BuffInfoBoard buffInfoBoard;
     protected BackgroundImageBox backgroundImageBox;
     protected IdleMushroomGameAreaControlBoard gameAreaControlBoard;
+    protected ExtraControlBoard extraControlBoard;
 
     protected Table leftSideGroup;
     protected Table middleGroup;
@@ -103,7 +136,7 @@ public abstract class BaseIdleMushroomScreen extends BaseHundunScreen<IdleMushro
         gameAreaChangeListeners.add(backgroundImageBox);
         gameAreaChangeListeners.add(gameAreaControlBoard);
 
-        gameAreaControlBoard.lazyInit(game.getControlBoardScreenIds());
+        gameAreaControlBoard.lazyInit(game.getControlBoardScreenGetters());
 
         this.getGame().getIdleGameplayExport().getGameplayContext().getEventManager().registerListener(this);
         this.getGame().getIdleGameplayExport().getGameplayContext().getEventManager().registerListener(storageInfoTable);
@@ -113,7 +146,7 @@ public abstract class BaseIdleMushroomScreen extends BaseHundunScreen<IdleMushro
     /**
      * BaseIdleMushroomScreen.lazyInitUiRootContext()结束时，uiRootTable基础布局已完成：<br>
      * 1. 第一第二行（上部）是定高的storageInfoTable和buffInfoBoard；<br>
-     * 2. 第三行分为左中右，右部是定宽的gameAreaControlBoard，中部middleGroup应用grow()，则左侧leftSideGroup默认宽度为0。<br>
+     * 2. 第三行分为左中右，右部是定宽定高的gameAreaControlBoard，中部middleGroup应用grow()，则左侧leftSideGroup默认宽度为0。<br>
      * 子类可拓展：<br>
      * - 向leftSideGroup添加（定宽的）board。<br>
      * - 向middleGroup添加游戏画面。<br>
@@ -141,17 +174,23 @@ public abstract class BaseIdleMushroomScreen extends BaseHundunScreen<IdleMushro
         middleGroup = new Table();
         uiRootTable.add(middleGroup).grow();
 
+        Table verticalGroup = new Table();
         gameAreaControlBoard = new IdleMushroomGameAreaControlBoard(this);
-        gameAreaControlBoard.top();
-        uiRootTable.add(gameAreaControlBoard)
-                .growY()
-                .row();
+        extraControlBoard = new ExtraControlBoard(this);
+
+        verticalGroup.add(gameAreaControlBoard)
+            .width(this.getLayoutConst().AREA_BOARD_BORDER_WIDTH)
+            .row();
+        verticalGroup.add(extraControlBoard)
+            .width(this.getLayoutConst().AREA_BOARD_BORDER_WIDTH);
+        uiRootTable.add(verticalGroup)
+            .top()
+            .row();
     }
 
     protected void lazyInitBackUiAndPopupUiContent() {
 
-        this.secondaryInfoBoard = new SharedWikiPopupInfoBoard(this.getGame());
-        popupRootTable.add(secondaryInfoBoard).center().expand();
+
 
         this.backgroundImageBox = new BackgroundImageBox(this);
         backUiStage.addActor(backgroundImageBox);
@@ -195,16 +234,4 @@ public abstract class BaseIdleMushroomScreen extends BaseHundunScreen<IdleMushro
      * 子类决定好当前Screen的InputProcessor（常为mixed）后，在此方法提供给基类。基类管理切换。
      */
     protected abstract InputProcessor provideDefaultInputProcessor();
-
-    @Override
-    public void showAndUpdateGuideInfo(Object model) {
-        secondaryInfoBoard.setVisible(true);
-        secondaryInfoBoard.update(model);
-    }
-
-    @Override
-    public void hideAndCleanGuideInfo() {
-        secondaryInfoBoard.setVisible(false);
-        //popUpInfoBoard.setText("GUIDE_TEXT");
-    }
 }

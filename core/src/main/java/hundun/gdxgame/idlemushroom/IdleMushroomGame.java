@@ -49,7 +49,7 @@ public class IdleMushroomGame extends BaseHundunGame<RootSaveData> {
     protected String lastScreenId;
     @Getter
     protected
-    List<Supplier<BaseIdleMushroomScreen>> controlBoardScreenIds;
+    List<Supplier<BaseIdleMushroomScreen>> controlBoardScreenGetters;
 
     @Getter
     IdleMushroomPlayScreenLayoutConst idleMushroomPlayScreenLayoutConst;
@@ -83,10 +83,11 @@ public class IdleMushroomGame extends BaseHundunGame<RootSaveData> {
         this.audioPlayManager = new IdleMushroomAudioPlayManager(this);
         this.childGameConfig = new IdleMushroomChildGameConfig();
         this.idleMushroomGameDictionary = new IdleMushroomGameDictionary();
-        this.controlBoardScreenIds = JavaFeatureForGwt.listOf(
+        this.controlBoardScreenGetters = JavaFeatureForGwt.listOf(
             () -> screenContext.getMainPlayScreen(),
             () -> screenContext.getWorldPlayScreen(),
-            () -> screenContext.getAchievementScreen()
+            () -> screenContext.getAchievementScreen(),
+            () -> screenContext.getMonitorScreen()
         );
         this.idleMushroomExtraGameplayManager = new IdleMushroomExtraGameplayManager(this);
         this.proxyManager = new ProxyManager(this,

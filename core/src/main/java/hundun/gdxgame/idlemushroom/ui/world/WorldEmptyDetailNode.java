@@ -10,7 +10,7 @@ import hundun.gdxgame.idlemushroom.ui.screen.IdleMushroomWorldPlayScreen;
 import hundun.gdxgame.idlemushroom.ui.shared.BaseCellDetailNodeVM;
 import hundun.gdxgame.idlemushroom.ui.shared.BaseIdleMushroomPlayScreen;
 import hundun.gdxgame.idlemushroom.ui.shared.ConstructionDetailPartVM;
-import hundun.gdxgame.idleshare.core.framework.StarterSecondaryInfoBoardCallerClickListener;
+import hundun.gdxgame.idleshare.core.framework.PopupBoardCallerClickListener;
 import hundun.gdxgame.idleshare.gamelib.framework.data.ChildGameConfig.ConstructionBuyCandidateConfig;
 import hundun.gdxgame.idleshare.gamelib.framework.model.construction.base.BaseConstruction;
 import hundun.gdxgame.idleshare.gamelib.framework.model.construction.base.DescriptionPackage;
@@ -102,7 +102,7 @@ public class WorldEmptyDetailNode extends BaseCellDetailNodeVM {
         Container<?> questionMarkArea = new Container<>(new Image(screen.getGame().getTextureManager().getQuestionMarkTexture()));
         questionMarkArea.setBackground(screen.getGame().getTextureManager().getQuestionMarkTableDrawable());
         questionMarkArea.setTouchable(Touchable.enabled);
-        questionMarkArea.addListener(new StarterSecondaryInfoBoardCallerClickListener<>(() -> construction, screen));
+        questionMarkArea.addListener(new PopupBoardCallerClickListener<>(() -> construction, screen.getWikiPopupBoardCallback()));
         this.add(questionMarkArea)
                 .width(screen.getIdleMushroomPlayScreenLayoutConst().questionMarkAreaSize)
                 .height(screen.getIdleMushroomPlayScreenLayoutConst().questionMarkAreaSize)

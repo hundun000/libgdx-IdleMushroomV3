@@ -112,7 +112,7 @@ public class IdleMushroomMainPlayScreen extends BaseIdleMushroomPlayScreen
                 game.getTextureManager().getMainClickAnimationTextureAtlas()
         );
 
-        constructionControlBoard = new MainScreenConstructionControlBoard(this, this);
+        constructionControlBoard = new MainScreenConstructionControlBoard(this, this.getWikiPopupBoardCallback());
         uiRootTable.add(constructionControlBoard)
                 .height(layoutConst.CONSTRUCION_BOARD_ROOT_BOX_HEIGHT)
                 .fill()

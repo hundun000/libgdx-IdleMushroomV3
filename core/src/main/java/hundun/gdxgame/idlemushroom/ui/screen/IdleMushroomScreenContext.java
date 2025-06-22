@@ -18,7 +18,7 @@ public class IdleMushroomScreenContext {
     IdleMushroomMainPlayScreen mainPlayScreen;
     IdleMushroomWorldPlayScreen worldPlayScreen;
     IdleMushroomAchievementScreen achievementScreen;
-
+    IdleMushroomMonitorScreen monitorScreen;
 
 
     public static class IdleMushroomPlayScreenLayoutConst {
@@ -81,7 +81,7 @@ public class IdleMushroomScreenContext {
         this.mainPlayScreen = new IdleMushroomMainPlayScreen(game);
         this.worldPlayScreen = new IdleMushroomWorldPlayScreen(game);
         this.achievementScreen = new IdleMushroomAchievementScreen(game);
-
+        this.monitorScreen = new IdleMushroomMonitorScreen(game);
 
     }
 

@@ -7,4 +7,5 @@ public class IdleMushroomScreenId {
     public static final String SCREEN_WORLD = "ENUM_AREA@AREA_FOREST";
 
     public static final String SCREEN_ACHIEVEMENT = "ENUM_AREA@SCREEN_ACHIEVEMENT";
+    public static final String SCREEN_MONITOR = "ENUM_AREA@SCREEN_MONITOR";
 }

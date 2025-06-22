@@ -7,20 +7,20 @@ import hundun.gdxgame.idlemushroom.logic.id.IdleMushroomConstructionPrototypeId;
 import hundun.gdxgame.idleshare.gamelib.framework.model.buff.BuffManager.BuffAndStatus;
 import hundun.gdxgame.idleshare.gamelib.framework.model.construction.base.BaseConstruction;
 
-public class SharedWikiPopupInfoBoard extends Table {
+public class SharedWikiPopupBoard extends Table {
 
     IdleMushroomGame game;
     EpochConstructionWikiVM epochConstructionWikiVM;
     NormalConstructionWikiVM constructionDetailPartVM;
     BuffWikiVM buffWikiVM;
 
-    public SharedWikiPopupInfoBoard(IdleMushroomGame game) {
+    public SharedWikiPopupBoard(IdleMushroomGame game) {
         //super("GUIDE_TEXT", parent.game.getButtonSkin());
         this.game = game;
         //this.setBounds(5, GameAreaControlBoard.Y, GameAreaControlBoard.X - 10, 120);
         this.setTouchable(Touchable.disabled);
         this.setBackground(game.getTextureManager().getTableType1Drawable());
-        this.setVisible(false);
+        //this.setVisible(false);
 
         this.epochConstructionWikiVM = new EpochConstructionWikiVM(game);
         this.constructionDetailPartVM = new NormalConstructionWikiVM(game);

@@ -9,7 +9,7 @@ import hundun.gdxgame.idlemushroom.ui.screen.IdleMushroomScreenContext.IdleMushr
 import hundun.gdxgame.idlemushroom.ui.screen.IdleMushroomWorldPlayScreen;
 import hundun.gdxgame.idlemushroom.ui.shared.BaseCellDetailNodeVM;
 import hundun.gdxgame.idlemushroom.ui.shared.BaseIdleMushroomPlayScreen;
-import hundun.gdxgame.idleshare.core.framework.StarterSecondaryInfoBoardCallerClickListener;
+import hundun.gdxgame.idleshare.core.framework.PopupBoardCallerClickListener;
 import hundun.gdxgame.idleshare.gamelib.framework.model.construction.base.BaseConstruction;
 import hundun.gdxgame.idleshare.gamelib.framework.model.grid.GridPosition;
 
@@ -49,7 +49,7 @@ public class WorldTreeDetailNode extends BaseCellDetailNodeVM {
         Container<?> questionMarkArea = new Container<>(new Image(parent.getGame().getTextureManager().getQuestionMarkTexture()));
         questionMarkArea.setBackground(parent.getGame().getTextureManager().getQuestionMarkTableDrawable());
         questionMarkArea.setTouchable(Touchable.enabled);
-        questionMarkArea.addListener(new StarterSecondaryInfoBoardCallerClickListener<>(() -> model, parent));
+        questionMarkArea.addListener(new PopupBoardCallerClickListener<>(() -> model, parent.getWikiPopupBoardCallback()));
 
         // ------ leftPart ------
         this.add(constructionNameLabel).size(CHILD_WIDTH, NAME_CHILD_HEIGHT);

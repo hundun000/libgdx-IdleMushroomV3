@@ -5,7 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import hundun.gdxgame.libv3.gamelib.base.util.JavaFeatureForGwt;
 import hundun.gdxgame.idlemushroom.logic.id.IdleMushroomBuffId;
-import hundun.gdxgame.idleshare.core.framework.StarterSecondaryInfoBoardCallerClickListener;
+import hundun.gdxgame.idleshare.core.framework.PopupBoardCallerClickListener;
 import hundun.gdxgame.idleshare.gamelib.framework.listener.IBuffChangeListener;
 import hundun.gdxgame.idleshare.gamelib.framework.model.buff.BuffManager.BuffAndStatus;
 import lombok.Getter;
@@ -63,7 +63,7 @@ public class BuffInfoBoard extends Table implements IBuffChangeListener {
             Container<?> questionMarkArea = new Container<>(new Image(parent.getGame().getTextureManager().getQuestionMarkTexture()));
             questionMarkArea.setBackground(parent.getGame().getTextureManager().getQuestionMarkTableDrawable());
             questionMarkArea.setTouchable(Touchable.enabled);
-            questionMarkArea.addListener(new StarterSecondaryInfoBoardCallerClickListener<>(() -> model, this.parent));
+            questionMarkArea.addListener(new PopupBoardCallerClickListener<>(() -> model, this.parent.getWikiPopupBoardCallback()));
             this.add(questionMarkArea).size(parent.getGame().getIdleMushroomPlayScreenLayoutConst().questionMarkAreaSize, parent.getGame().getIdleMushroomPlayScreenLayoutConst().questionMarkAreaSize);
         }
 

@@ -13,6 +13,7 @@ import hundun.gdxgame.idlemushroom.logic.id.ResourceType;
 import lombok.Getter;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class IdleMushroomTextureManager {
@@ -85,7 +86,10 @@ public class IdleMushroomTextureManager {
     public TextureRegion getConstructionHexImage(String constructionId) {
         return constructionHexImageMap.getOrDefault(constructionId, defaultIcon);
     }
-
+    @Getter
+    TextureRegion systemSettingButtonTexture;
+    @Getter
+    TextureRegion closeButtonTexture;
     @Getter
     TextureRegion questionMarkTexture;
     @Getter
@@ -128,7 +132,10 @@ public class IdleMushroomTextureManager {
         {
             Texture texture = new Texture(Gdx.files.internal("All Icons.png"));
             TextureRegion[][] regions = TextureRegion.split(texture, 16, 16);
-            questionMarkTexture = regions[0][13];
+            int blockWidth = 6;
+            systemSettingButtonTexture = regions[0][blockWidth * 2];
+            closeButtonTexture = regions[2][blockWidth * 2 + 1];
+            questionMarkTexture = regions[0][blockWidth * 2 + 1];
             proxyEnabledIcon = regions[0][6];
             proxyDisabledIcon = regions[0][0];
         }
@@ -196,12 +203,18 @@ public class IdleMushroomTextureManager {
         {
             Texture texture = new Texture(Gdx.files.internal("gameAreaIcons.png"));
             TextureRegion[][] regions = TextureRegion.split(texture, 100, 50);
-            gameAreaLeftPartRegionMap.put(IdleMushroomScreenId.SCREEN_MAIN, regions[0][0]);
-            gameAreaLeftPartRegionMap.put(IdleMushroomScreenId.SCREEN_WORLD, regions[1][0]);
-            gameAreaLeftPartRegionMap.put(IdleMushroomScreenId.SCREEN_ACHIEVEMENT, regions[2][0]);
-            gameAreaRightPartRegionMap.put(IdleMushroomScreenId.SCREEN_MAIN, regions[0][1]);
-            gameAreaRightPartRegionMap.put(IdleMushroomScreenId.SCREEN_WORLD, regions[1][1]);
-            gameAreaRightPartRegionMap.put(IdleMushroomScreenId.SCREEN_ACHIEVEMENT, regions[2][1]);
+            List<String> screens = List.of(
+                IdleMushroomScreenId.SCREEN_MAIN,
+                IdleMushroomScreenId.SCREEN_WORLD,
+                IdleMushroomScreenId.SCREEN_ACHIEVEMENT,
+                IdleMushroomScreenId.SCREEN_MONITOR
+            );
+            for (int i = 0; i < screens.size(); i++) {
+                gameAreaLeftPartRegionMap.put(screens.get(i), regions[Math.min(i, regions.length - 1)][0]);
+                gameAreaRightPartRegionMap.put(screens.get(i), regions[Math.min(i, regions.length - 1)][1]);
+            }
+
+
         }
         {
             Texture texture = new Texture(Gdx.files.internal("bg_shroom.png"));

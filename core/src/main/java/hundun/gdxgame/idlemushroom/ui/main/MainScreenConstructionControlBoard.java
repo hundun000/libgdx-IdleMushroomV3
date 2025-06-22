@@ -17,9 +17,9 @@ import hundun.gdxgame.idlemushroom.ui.screen.IdleMushroomMainPlayScreen;
 import hundun.gdxgame.idlemushroom.ui.screen.IdleMushroomScreenContext.IdleMushroomPlayScreenLayoutConst;
 import hundun.gdxgame.idlemushroom.ui.shared.BaseCellDetailNodeVM;
 import hundun.gdxgame.idlemushroom.ui.shared.ConstructionDetailPartVM;
-import hundun.gdxgame.idleshare.core.framework.StarterSecondaryInfoBoardCallerClickListener;
+import hundun.gdxgame.idleshare.core.framework.PopupBoardCallerClickListener;
 import hundun.gdxgame.idleshare.gamelib.framework.callback.IConstructionCollectionListener;
-import hundun.gdxgame.idleshare.gamelib.framework.callback.ISecondaryInfoBoardCallback;
+import hundun.gdxgame.idleshare.gamelib.framework.callback.IPopupBoardCallback;
 import hundun.gdxgame.idleshare.gamelib.framework.model.construction.base.BaseConstruction;
 import hundun.gdxgame.idleshare.gamelib.framework.model.construction.base.DescriptionPackage;
 import hundun.gdxgame.idleshare.gamelib.framework.model.construction.base.UpgradeComponent.UpgradeState;
@@ -37,12 +37,12 @@ public class MainScreenConstructionControlBoard extends Table
 {
 
     IdleMushroomMainPlayScreen parent;
-    protected ISecondaryInfoBoardCallback<Object> callback;
+    protected IPopupBoardCallback<Object> callback;
 
     protected SellerPart sellerPart;
     protected EpochPart epochPart;
 
-    public MainScreenConstructionControlBoard(IdleMushroomMainPlayScreen parent, ISecondaryInfoBoardCallback<Object> callback) {
+    public MainScreenConstructionControlBoard(IdleMushroomMainPlayScreen parent, IPopupBoardCallback<Object> callback) {
         this.parent = parent;
         this.callback = callback;
 
@@ -114,7 +114,7 @@ public class MainScreenConstructionControlBoard extends Table
 
         public EpochPart(
                 IdleMushroomMainPlayScreen parent,
-                ISecondaryInfoBoardCallback<Object> callback) {
+                IPopupBoardCallback<Object> callback) {
             super();
             final IdleMushroomPlayScreenLayoutConst playScreenLayoutConst = parent.getIdleMushroomPlayScreenLayoutConst();
             this.parent = parent;
@@ -146,7 +146,7 @@ public class MainScreenConstructionControlBoard extends Table
             Container<?> questionMarkArea = new Container<>(new Image(parent.getGame().getTextureManager().getQuestionMarkTexture()));
             questionMarkArea.setBackground(parent.getGame().getTextureManager().getQuestionMarkTableDrawable());
             questionMarkArea.setTouchable(Touchable.enabled);
-            questionMarkArea.addListener(new StarterSecondaryInfoBoardCallerClickListener<>(() -> model, parent));
+            questionMarkArea.addListener(new PopupBoardCallerClickListener<>(() -> model, parent.getWikiPopupBoardCallback()));
 
             // ------ this ------
             leftPart.add(constructionNameLabel).size(playScreenLayoutConst.SELLER_PART_NAME_WIDTH, NAME_CHILD_HEIGHT);
@@ -226,7 +226,7 @@ public class MainScreenConstructionControlBoard extends Table
 
         public SellerPart(
                 IdleMushroomMainPlayScreen parent,
-                ISecondaryInfoBoardCallback<Object> callback) {
+                IPopupBoardCallback<Object> callback) {
             super();
             final IdleMushroomPlayScreenLayoutConst playScreenLayoutConst = parent.getIdleMushroomPlayScreenLayoutConst();
             this.parent = parent;
@@ -281,7 +281,7 @@ public class MainScreenConstructionControlBoard extends Table
             Container<?> questionMarkArea = new Container<>(new Image(parent.getGame().getTextureManager().getQuestionMarkTexture()));
             questionMarkArea.setBackground(parent.getGame().getTextureManager().getQuestionMarkTableDrawable());
             questionMarkArea.setTouchable(Touchable.enabled);
-            questionMarkArea.addListener(new StarterSecondaryInfoBoardCallerClickListener<>(() -> construction, parent));
+            questionMarkArea.addListener(new PopupBoardCallerClickListener<>(() -> construction, parent.getWikiPopupBoardCallback()));
 
             // ------ this ------
             leftPart.add(constructionNameLabel).size(CHILD_WIDTH, NAME_CHILD_HEIGHT);
